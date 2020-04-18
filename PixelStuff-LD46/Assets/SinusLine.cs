@@ -6,7 +6,11 @@ using UnityEngine.Events;
 [System.Serializable]
 public class MyStringEvent : UnityEvent<string>
 { }
+[System.Serializable]
 public class MyBoolEvent : UnityEvent<bool>
+{ }
+[System.Serializable]
+public class MyFloatEvent : UnityEvent<float>
 { }
 
 [ExecuteInEditMode]
@@ -14,6 +18,7 @@ public class SinusLine : MonoBehaviour
 {
     public MyStringEvent MatchScoreChanged = new MyStringEvent();
     public UnityEvent CurveMatch = new UnityEvent();
+    public MyFloatEvent MatchPercent = new MyFloatEvent();
 
     [SerializeField]
     public List<Line> Lines = new List<Line>();// = new List<Line>();
@@ -37,7 +42,10 @@ public class SinusLine : MonoBehaviour
 
     public float ScoreSum = 1.0f;
     public float ScoreSnap = 150f;
-    private bool IsAlreadySnap = false;
+    public float MaxScore = 1500f;
+private bool IsAlreadySnap = false;
+
+
 
     public SinusLine RefCurve;
 
@@ -84,6 +92,8 @@ public class SinusLine : MonoBehaviour
         }
 
         MatchScoreChanged.Invoke(ScoreSum.ToString());
+        Debug.Log(1f - (Mathf.Min(1f, ScoreSum / MaxScore)) + " " + ScoreSum + " " + MaxScore + " " + Mathf.Min(1f, ScoreSum / MaxScore));
+        MatchPercent.Invoke(1f-(Mathf.Min(1f, ScoreSum/ MaxScore)));
     }
 
     public void ResetSnap()
