@@ -6,11 +6,14 @@ using UnityEngine.Events;
 [System.Serializable]
 public class MyStringEvent : UnityEvent<string>
 { }
+public class MyBoolEvent : UnityEvent<bool>
+{ }
 
 [ExecuteInEditMode]
 public class SinusLine : MonoBehaviour
 {
     public MyStringEvent MatchScoreChanged = new MyStringEvent();
+    public UnityEvent CurveMatch = new UnityEvent();
 
     [SerializeField]
     public List<Line> Lines = new List<Line>();// = new List<Line>();
@@ -30,6 +33,11 @@ public class SinusLine : MonoBehaviour
     public float MaxAmplitude = 1.0f;
 
     public float FixSignal = 0.0f;
+    public float TimeMultiplicator = 1.0f;
+
+    public float ScoreSum = 1.0f;
+    public float ScoreSnap = 150f;
+    private bool IsAlreadySnap = false;
 
     public SinusLine RefCurve;
 
@@ -54,13 +62,33 @@ public class SinusLine : MonoBehaviour
 
     public void RecalculateAndSendMatchScore()
     {
-        float scoreSum = 0.0f;
+        ScoreSum = 0.0f;
         for (int i = 0; i < lengthOfLineRenderer; i++)
         {
-            scoreSum += Mathf.Abs(RefCurve.GetYCurvePosition(i) - GetYCurvePosition(i));
+            ScoreSum += Mathf.Abs(RefCurve.GetYCurvePosition(i) - GetYCurvePosition(i));
         }
 
-        MatchScoreChanged.Invoke(scoreSum.ToString());
+        RefCurve.ScoreSum = ScoreSum;
+        if(ScoreSum <= ScoreSnap)
+        {
+            if (!IsAlreadySnap)
+            {
+                IsAlreadySnap = true;
+                CurveMatch.Invoke();
+                //snapValue
+                Frequence = RefCurve.Frequence;
+                Amplitude = RefCurve.Amplitude;
+                Dephasage = RefCurve.Dephasage;
+            }
+            
+        }
+
+        MatchScoreChanged.Invoke(ScoreSum.ToString());
+    }
+
+    public void ResetSnap()
+    {
+        IsAlreadySnap = false;
     }
 
     void Start()
@@ -89,7 +117,7 @@ public class SinusLine : MonoBehaviour
         float y = 0.0f;
         foreach (Line line in Lines)
         {
-            y += line.GetValue(i, Frequence, Amplitude, Dephasage * 1000, FixSignal);
+            y += line.GetValue(i, Frequence, Amplitude, Dephasage * 1000, FixSignal, TimeMultiplicator);
         }
         return y;
     }
@@ -103,9 +131,9 @@ public class SinusLine : MonoBehaviour
 
         public float FixSignal = 0.0f;
 
-        public float GetValue(float time, float superFrequence, float superAmplitude, float superDephasage,float superFixSignal)
+        public float GetValue(float time, float superFrequence, float superAmplitude, float superDephasage,float superFixSignal, float timeMultiplicator)
         {
-            return FixSignal + superFixSignal + Amplitude * superAmplitude * Mathf.Sin(Mathf.PI * 2 * Frequence * superFrequence / 1000 * (time+ superDephasage) + Dephasage +  Time.time);
+            return FixSignal + superFixSignal + Amplitude * superAmplitude * Mathf.Sin(Mathf.PI * 2 * Frequence * superFrequence / 1000 * (time+ superDephasage) + Dephasage +  Time.time* timeMultiplicator);
         }
     }
 }
