@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5597529313847346077}
   - component: {fileID: 5597529313847346067}
   - component: {fileID: 5597529313847346076}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FantomeMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 5597529313854673151}
   - component: {fileID: 5597529313854673144}
   - component: {fileID: 5597529313854673145}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ghost petitefille evil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5597529313854673146}
   m_LocalRotation: {x: 0.07071966, y: -0.07746968, z: -0.0055091027, w: -0.99446815}
-  m_LocalPosition: {x: 2.5, y: 3.8, z: -0.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 5597529313847346077}
@@ -234,7 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5597529314187524852}
   - component: {fileID: 5597529314187524747}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Fantome
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 5597529315524941473}
   - component: {fileID: 5597529315524941479}
   - component: {fileID: 5597529315524941472}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5069,7 +5069,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5597529315688226966}
   - component: {fileID: 5597529315688226965}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Gradient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
