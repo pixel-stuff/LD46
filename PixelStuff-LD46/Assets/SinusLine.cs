@@ -39,6 +39,7 @@ public class SinusLine : MonoBehaviour
 
     public float FixSignal = 0.0f;
     public float TimeMultiplicator = 1.0f;
+    protected float TimeMultiplicatorAlternate = 1.0f;
 
     public float ScoreSum = 1.0f;
     public float ScoreSnap = 150f;
@@ -46,12 +47,19 @@ public class SinusLine : MonoBehaviour
 private bool IsAlreadySnap = false;
 
 
+    public float DebugPercent = 1.0f;
 
-    public SinusLine RefCurve;
+    public SinusLine RefCurve = null;
 
     public void ApplyMatchPercent(float matchPercent)
     {
-
+        Frequence = RefCurve.Frequence + (1 - matchPercent)* (MaxFrequence - MinFrequence);
+        Amplitude = RefCurve.Amplitude + (1 - matchPercent) * (MaxAmplitude - MinAmplitude);
+        Dephasage = RefCurve.Dephasage + (1 - matchPercent) * (MaxDephasage - MinDephasage);
+        
+        RecalculateAndSendMatchScore();
+        TimeMultiplicatorAlternate = TimeMultiplicator * (1 - matchPercent);
+        RefCurve.TimeMultiplicatorAlternate = RefCurve.TimeMultiplicator * (1 - matchPercent);
     }
 
     public void ApplyOverAll(Vector3 data)
@@ -132,6 +140,9 @@ private bool IsAlreadySnap = false;
     }
     void Update()
     {
+        if(RefCurve)
+        ApplyMatchPercent(DebugPercent);
+
         LineRenderer lineRenderer = GetComponent<LineRenderer>();
         int i = 0;
         float offset = ScreenSize / lengthOfLineRenderer;
@@ -148,7 +159,7 @@ private bool IsAlreadySnap = false;
         float y = 0.0f;
         foreach (Line line in Lines)
         {
-            y += line.GetValue(i, Frequence, Amplitude, Dephasage * 1000, FixSignal, TimeMultiplicator);
+            y += line.GetValue(i, Frequence, Amplitude, Dephasage * 1000, FixSignal, TimeMultiplicatorAlternate);
         }
         return y;
     }
