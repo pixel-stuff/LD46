@@ -27,6 +27,9 @@ public class OuijaSimulator : MonoBehaviour {
   void Update() {
 
     if(Input.GetKey(KeyCode.Mouse0)) {
+      var v3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+      v3.z = 0f;
+      Debug.Log("pos : " + v3);
       data.Invoke(new Vector3(
         MousePositionProjectionIntoLessPlus(amplitudeLess.position, amplitudePlus.position),
         MousePositionProjectionIntoLessPlus(frequenceLess.position, frequencePlus.position),
