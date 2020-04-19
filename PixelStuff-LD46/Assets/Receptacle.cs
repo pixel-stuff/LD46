@@ -10,6 +10,11 @@ public class Receptacle : MonoBehaviour
     public UnityEvent IsOveredByIngredient = new UnityEvent();
     public UnityEvent IsNotOveredAnymoreByIngredient = new UnityEvent();
     public UnityEvent IngredientDiscarded = new UnityEvent();
+    [HideInInspector] public SpriteRenderer spriteRenderer;
+
+    private void Awake() {
+      spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     // Start is called before the first frame update
     void Start()
