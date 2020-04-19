@@ -73,7 +73,7 @@ public class Receptacle : MonoBehaviour
         IngredientRemoved.Invoke(this);
     }
 
-    bool IsIngredientTag(EIngredientTag tag)
+    public bool IsIngredientTag(EIngredientTag tag)
     {
         if (LinkedIngredient2D)
         {

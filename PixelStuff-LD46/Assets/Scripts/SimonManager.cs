@@ -26,8 +26,14 @@ public class SimonManager : MonoBehaviour {
   List<Receptacle> tmpReceptacle;
   List<SimonIngredient> tmpSimonIngredient;
   List<Iteration> currentSequence;
+  List<Receptacle> playerSequence;
 
-  private void Awake() => currentSequence = new List<Iteration>();
+  int ingredientReceived;
+
+  private void Awake() {
+    currentSequence = new List<Iteration>();
+    playerSequence = new List<Receptacle>();
+  }
 
   public void CreateSequence(int numberOfItemToPick = 3) {
     if(numberOfItemToPick > receptacles.Length) {
@@ -37,7 +43,9 @@ public class SimonManager : MonoBehaviour {
     tmpSimonIngredient = new List<SimonIngredient>(simonIngredients);
     tmpReceptacle = new List<Receptacle>(receptacles);
     currentSequence.Clear();
+    playerSequence.Clear();
     foreach(var o in receptacles) { o.spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, 0.0f); }
+    ingredientReceived = 0;
 
     for(var i = 0; i < numberOfItemToPick; i++) {
       var randSprite = UnityEngine.Random.Range(0, tmpSimonIngredient.Count);
@@ -81,9 +89,32 @@ public class SimonManager : MonoBehaviour {
   }
 
   public void ReceptacleReceivedIngredient(Receptacle recep) {
-    Debug.Log("Mathias TODO bidobido");
+    playerSequence.Add(recep);
   }
   public void ReceptacleRemovedIngredient(Receptacle recep) {
-    Debug.Log("Mathias TODO bidobido");
+    //Debug.Log("Mathias TODO bidobido 2");
+    playerSequence.Remove(recep);
   }
+  public bool IsLastReceptacle(Receptacle recep) {
+    if(playerSequence.Last() == recep) {
+      return true;
+    }
+    return false;
+  }
+
+  public bool CheckPlayerSequence() {
+    if(currentSequence.Count != playerSequence.Count) {
+      Debug.Log("MATHIAS -> this shouldn't happen");
+      return false;
+    }
+
+    for(var i = 0; i < playerSequence.Count; i++) {
+      if(playerSequence[i].IsIngredientTag(currentSequence[i].simonIngredient.tag)){
+        return true;
+      }
+    }
+
+    return false;
+  }
+
 }
