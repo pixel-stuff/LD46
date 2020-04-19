@@ -41,7 +41,7 @@ public class Receptacle : MonoBehaviour
         }
     }
 
-    void OnTriggerExist2D(Collider2D col)
+    void OnTriggerExit2D(Collider2D col)
     {
         if (col.gameObject.tag == "Ingredient")
         {
