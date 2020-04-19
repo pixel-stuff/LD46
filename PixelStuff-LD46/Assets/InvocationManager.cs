@@ -13,6 +13,7 @@ public class InvocationManager : MonoBehaviour
     public List<GameObject> InvocationGameObjects = new List<GameObject>();
 
     public SinusLine RefCurve;
+    public UnityEvent InitInvocationEvent = new UnityEvent();
     public UnityEvent InvocationStarted = new UnityEvent();
     public UnityEvent AnimationOver = new UnityEvent();
     private int currentInvocationIndex = 0;
@@ -44,6 +45,8 @@ public class InvocationManager : MonoBehaviour
         InvocationGameObjects.Add(invoke);
         //resetMask
         invoke.GetComponentInChildren<MaskSlideComponent>().VisibleFactor = 0f;
+
+        InitInvocationEvent.Invoke();
     }
 
     public void InvocationStart()

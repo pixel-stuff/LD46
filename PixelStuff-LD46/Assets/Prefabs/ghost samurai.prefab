@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9149908267900963586}
   - component: {fileID: 8091042575748236849}
   - component: {fileID: 8179593204871225640}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FantomeMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6555678974109085763}
   - component: {fileID: 2176159078434725442}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Gradient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 816252197784419575}
   - component: {fileID: 728236868984708502}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Fantome
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 2906628263446275421}
   - component: {fileID: 8120010701839736825}
   - component: {fileID: 6562892018954109759}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5028,7 +5028,7 @@ GameObject:
   - component: {fileID: 282744667661808410}
   - component: {fileID: 6449713302646773265}
   - component: {fileID: 1680257517353606065}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ghost samurai
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5043,7 +5043,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6568105416783041131}
   m_LocalRotation: {x: 0.0027662686, y: 0.9958425, z: 0.032370582, w: -0.08510096}
-  m_LocalPosition: {x: 4.2, y: 3.5, z: -0.6}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 9149908267900963586}
