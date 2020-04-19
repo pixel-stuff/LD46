@@ -9,6 +9,8 @@ public class InvocationManager : MonoBehaviour
 
     public AnimationClip[] MoveAnimation;
 
+    public List<GameObject> InvocationGameObjects = new List<GameObject>();
+
     public SinusLine RefCurve;
     public UnityEvent InvocationStarted = new UnityEvent();
     public UnityEvent AnimationOver = new UnityEvent();
@@ -34,15 +36,19 @@ public class InvocationManager : MonoBehaviour
         RefCurve.Frequence = inv.Frequence;
         RefCurve.Dephasage = inv.Dephasage;
         RefCurve.Amplitude = inv.Amplitude;
+
+        GameObject invoke = GameObject.Instantiate(Invocations[currentInvocationIndex].prefab, transform);
+        InvocationGameObjects.Add(invoke);
+        //resetMask
+        invoke.GetComponentInChildren<MaskSlideComponent>().VisibleFactor = 0f;
     }
 
     public void InvocationStart()
     {
         InvocationStarted.Invoke();
-        GameObject invoke = GameObject.Instantiate(Invocations[currentInvocationIndex].prefab,transform);
+        GameObject invoke = InvocationGameObjects[InvocationGameObjects.Count - 1];
         invoke.GetComponent<Animation>().AddClip(MoveAnimation[currentInvocationIndex], MoveAnimation[currentInvocationIndex].name);
         invoke.GetComponent<Animation>().Play(MoveAnimation[currentInvocationIndex].name);
-        //invoke.GetComponent<Animation>().Play()
     }
 
     public void InvokeNext()
@@ -56,6 +62,11 @@ public class InvocationManager : MonoBehaviour
 
         InitInvocation(Invocations[currentInvocationIndex]);
 
+    }
+
+    public void UpdateVisibleFactor(float factor)
+    {
+        InvocationGameObjects[InvocationGameObjects.Count - 1].GetComponentInChildren<MaskSlideComponent>().VisibleFactor = factor;
     }
 }
 
