@@ -59,4 +59,5 @@ public class OuijaSimulator : MonoBehaviour {
     }
     return val;
   }
+
 }
