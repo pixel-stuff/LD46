@@ -125,6 +125,7 @@ MonoBehaviour:
   IsNotOveredAnymoreByIngredient:
     m_PersistentCalls:
       m_Calls: []
+  spriteRenderer: {fileID: 0}
   IngredientDiscarded:
     m_PersistentCalls:
       m_Calls:
@@ -139,10 +140,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  spriteRenderer: {fileID: 0}
   IngredientReceived:
     m_PersistentCalls:
       m_Calls: []
+  IngredientRemoved:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2691799846737896899}
+        m_MethodName: Emit
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!212 &1205095149566373017
 SpriteRenderer:
   m_ObjectHideFlags: 0

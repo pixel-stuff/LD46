@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 [System.Serializable]
 public class MyGameObjectEvent : UnityEvent<GameObject> { }
-public class ReceptacleEvent : UnityEvent<Receptacle> { }
+[System.Serializable] public class ReceptacleEvent : UnityEvent<Receptacle> { }
 
 public class Receptacle : MonoBehaviour
 {
@@ -14,7 +14,6 @@ public class Receptacle : MonoBehaviour
     public UnityEvent IsOveredByIngredient = new UnityEvent();
     public UnityEvent IsNotOveredAnymoreByIngredient = new UnityEvent();
     [HideInInspector] public SpriteRenderer spriteRenderer;
-    public UnityEvent IngredientDiscarded = new UnityEvent();
     
     public ReceptacleEvent IngredientReceived;
     public ReceptacleEvent IngredientRemoved;
@@ -71,7 +70,6 @@ public class Receptacle : MonoBehaviour
     {
         Destroy(LinkedIngredient2D);
         LinkedIngredient2D = null;
-        IngredientDiscarded.Invoke();
         IngredientRemoved.Invoke(this);
     }
 
