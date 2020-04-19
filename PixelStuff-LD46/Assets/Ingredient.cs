@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
 
 public class Ingredient : MonoBehaviour
 {
     public SpriteRenderer rend;
-    bool IsOver = true;
     bool IsSelected = true;
+
+    public UnityEvent IsSelectedEvent = new UnityEvent();
+    public UnityEvent IsDropEvent = new UnityEvent();
+    public UnityEvent IsDropOnReceptacleEvent = new UnityEvent();
 
     public GameObject Receptacle = null;
 
@@ -15,17 +20,11 @@ public class Ingredient : MonoBehaviour
     void Start()
     {
         rend = GetComponent<SpriteRenderer>();
+        IsSelectedEvent.Invoke();
     }
 
     private void Update()
     {
-        if(IsOver && Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            IsSelected = true;
-            rend.color = Color.blue;
-        }
-
-
         if(IsSelected && Input.GetKeyUp(KeyCode.Mouse0))
         {
             IsSelected = false;
@@ -35,11 +34,14 @@ public class Ingredient : MonoBehaviour
                 this.transform.position = Receptacle.transform.position;
                 Receptacle.GetComponent<Receptacle>().OnIngredientLinked(this.gameObject);
                 Destroy(this.GetComponent<BoxCollider2D>());
-                Destroy(this);
+                IsDropOnReceptacleEvent.Invoke();
+                this.enabled = false; //Destroy(this);
             }
             else
             {
-                Destroy(this.gameObject);
+                IsDropEvent.Invoke();
+                Destroy(this.GetComponent<SpriteRenderer>());
+                this.enabled = false;
             }
         }
 
@@ -52,37 +54,33 @@ public class Ingredient : MonoBehaviour
         }
     }
 
-    // The mesh goes red when the mouse is over it...
-    void OnMouseEnter()
-    {
-        rend.color = Color.red;
-    }
-
-    // ...the red fades out to cyan as the mouse is held over...
-    void OnMouseOver()
-    {
-        //rend.color -= new Color(0.1F, 0, 0) * Time.deltaTime;
-        IsOver = true;
-    }
-
-    // ...and the mesh finally turns white when the mouse moves away.
-    void OnMouseExit()
-    {
-        rend.color = Color.white;
-        IsOver = false;
-    }
-
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "Receptacle")
         {
             Debug.Log("CollideWithReceptacle");
-            Receptacle = col.gameObject;
-            rend.color = Color.yellow;
+            if (col.gameObject.GetComponent<Receptacle>().LinkedIngredient2D == null)
+            {
+                Receptacle = col.gameObject;
+                rend.color = Color.yellow;
+            }
         }
     }
 
-            public Vector3 GetWorldPositionOnPlane(Vector3 screenPosition, float z)
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Receptacle")
+        {
+            Debug.Log("ENDCollideWithReceptacle");
+            if (col.gameObject.GetComponent<Receptacle>().LinkedIngredient2D == null)
+            {
+                Receptacle = null;
+                rend.color = Color.red;
+            }
+        }
+    }
+
+    public Vector3 GetWorldPositionOnPlane(Vector3 screenPosition, float z)
     {
         Ray ray = Camera.main.ScreenPointToRay(screenPosition);
         Plane xy = new Plane(Vector3.forward, new Vector3(0, 0, z));

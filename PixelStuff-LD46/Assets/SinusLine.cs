@@ -47,19 +47,91 @@ public class SinusLine : MonoBehaviour
 private bool IsAlreadySnap = false;
 
 
-    public float DebugPercent = 1.0f;
+    public float MatchPercentValue = 0.0f;
+    public float DebugPercent = 0f;
+    private float comparDebugPercent = 0f;
+    private bool onlyOnce = false;
 
     public SinusLine RefCurve = null;
 
+    IEnumerator ChangeFreq(float v_start, float v_end, float duration)
+    {
+        float elapsed = 0.0f;
+        while (elapsed < duration)
+        {
+            Frequence = Mathf.Lerp(v_start, v_end, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        Frequence = v_end;
+    }
+
+    IEnumerator ChangeAmpl(float v_start, float v_end, float duration)
+    {
+        float elapsed = 0.0f;
+        while (elapsed < duration)
+        {
+            Amplitude = Mathf.Lerp(v_start, v_end, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        Amplitude = v_end;
+    }
+
+    IEnumerator ChangeDeph(float v_start, float v_end, float duration)
+    {
+        float elapsed = 0.0f;
+        while (elapsed < duration)
+        {
+            Dephasage = Mathf.Lerp(v_start, v_end, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        Dephasage = v_end;
+    }
+
+    IEnumerator ChangeTimeMultiAl(float v_start, float v_end, float duration)
+    {
+        float elapsed = 0.0f;
+        while (elapsed < duration)
+        {
+            TimeMultiplicatorAlternate = Mathf.Lerp(v_start, v_end, elapsed / duration);
+            RefCurve.TimeMultiplicatorAlternate = Mathf.Lerp(v_start, v_end, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        TimeMultiplicatorAlternate = v_end;
+        RefCurve.TimeMultiplicatorAlternate = v_end;
+    }
+
+    IEnumerator ChangeMatchPercent(float v_start, float v_end, float duration)
+    {
+        float elapsed = 0.0f;
+        while (elapsed < duration)
+        {
+            MatchPercentValue = Mathf.Lerp(v_start, v_end, elapsed / duration);
+            MatchPercent.Invoke(Mathf.Lerp(v_start, v_end, elapsed / duration));
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        MatchPercentValue = v_end;
+        MatchPercent.Invoke(v_end);
+        if (MatchPercentValue == 1f)
+        {
+            CurveMatch.Invoke();
+        }
+    }
+
     public void ApplyMatchPercent(float matchPercent)
     {
-        Frequence = RefCurve.Frequence + (1 - matchPercent)* (MaxFrequence - MinFrequence);
-        Amplitude = RefCurve.Amplitude + (1 - matchPercent) * (MaxAmplitude - MinAmplitude);
-        Dephasage = RefCurve.Dephasage + (1 - matchPercent) * (MaxDephasage - MinDephasage);
-        
-        RecalculateAndSendMatchScore();
-        TimeMultiplicatorAlternate = TimeMultiplicator * (1 - matchPercent);
-        RefCurve.TimeMultiplicatorAlternate = RefCurve.TimeMultiplicator * (1 - matchPercent);
+        StartCoroutine(ChangeFreq(Frequence, RefCurve.Frequence + (1 - matchPercent)* (MaxFrequence - MinFrequence), 2f));
+        StartCoroutine(ChangeAmpl(Amplitude, RefCurve.Amplitude + (1 - matchPercent) * (MaxAmplitude - MinAmplitude), 2f));
+        StartCoroutine(ChangeDeph(Dephasage, RefCurve.Dephasage + (1 - matchPercent) * (MaxDephasage - MinDephasage), 2f));
+
+        //RecalculateAndSendMatchScore();
+        StartCoroutine(ChangeTimeMultiAl(TimeMultiplicatorAlternate, TimeMultiplicator * (1 - matchPercent), 2f));
+
+        StartCoroutine(ChangeMatchPercent(MatchPercentValue, matchPercent, 2f));
     }
 
     public void ApplyOverAll(Vector3 data)
@@ -140,8 +212,22 @@ private bool IsAlreadySnap = false;
     }
     void Update()
     {
-        if(RefCurve)
-        ApplyMatchPercent(DebugPercent);
+        if(RefCurve && DebugPercent != comparDebugPercent)
+        {
+            onlyOnce = true;
+            comparDebugPercent = DebugPercent;
+            ApplyMatchPercent(DebugPercent);
+        }
+       /* else if (RefCurve && DebugPercent == MatchPercentValue && onlyOnce)
+        {
+            onlyOnce = false;
+            MatchPercent.Invoke(DebugPercent);
+            if (MatchPercentValue == 1f)
+            {
+                CurveMatch.Invoke();
+            }
+        }*/
+
 
         LineRenderer lineRenderer = GetComponent<LineRenderer>();
         int i = 0;
@@ -159,7 +245,7 @@ private bool IsAlreadySnap = false;
         float y = 0.0f;
         foreach (Line line in Lines)
         {
-            y += line.GetValue(i, Frequence, Amplitude, Dephasage * 1000, FixSignal, TimeMultiplicatorAlternate);
+            y += line.GetValue(i, Frequence, Amplitude, Dephasage * 1000, FixSignal, TimeMultiplicator);
         }
         return y;
     }

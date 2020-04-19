@@ -4,22 +4,25 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-public class MyGameObjectEvent : UnityEvent<GameObject>
-{ }
+public class MyGameObjectEvent : UnityEvent<GameObject> { }
+[System.Serializable] public class ReceptacleEvent : UnityEvent<Receptacle> { }
+
 public class Receptacle : MonoBehaviour
 {
 
     public GameObject LinkedIngredient2D = null;
     public UnityEvent IsOveredByIngredient = new UnityEvent();
     public UnityEvent IsNotOveredAnymoreByIngredient = new UnityEvent();
-    public UnityEvent IngredientDiscarded = new UnityEvent();
     [HideInInspector] public SpriteRenderer spriteRenderer;
+    
+    public ReceptacleEvent IngredientReceived;
+    public ReceptacleEvent IngredientRemoved;
 
-    private void Awake() {
+
+  private void Awake() {
       spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public MyGameObjectEvent IngredientReceived = new MyGameObjectEvent();
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +44,7 @@ public class Receptacle : MonoBehaviour
         }
     }
 
-    void OnTriggerExist2D(Collider2D col)
+    void OnTriggerExit2D(Collider2D col)
     {
         if (col.gameObject.tag == "Ingredient")
         {
@@ -60,14 +63,14 @@ public class Receptacle : MonoBehaviour
     public void OnIngredientLinked(GameObject ingredient)
     {
         LinkedIngredient2D = ingredient;
-        IngredientReceived.Invoke(this.gameObject);
+        IngredientReceived.Invoke(this);
     }
 
     public void DiscardIngredient()
     {
         Destroy(LinkedIngredient2D);
         LinkedIngredient2D = null;
-        IngredientDiscarded.Invoke();
+        IngredientRemoved.Invoke(this);
     }
 
     bool IsIngredientTag(EIngredientTag tag)
