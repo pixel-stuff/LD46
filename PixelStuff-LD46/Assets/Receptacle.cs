@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[System.Serializable]
+public class MyGameObjectEvent : UnityEvent<GameObject>
+{ }
 public class Receptacle : MonoBehaviour
 {
 
@@ -10,6 +13,8 @@ public class Receptacle : MonoBehaviour
     public UnityEvent IsOveredByIngredient = new UnityEvent();
     public UnityEvent IsNotOveredAnymoreByIngredient = new UnityEvent();
     public UnityEvent IngredientDiscarded = new UnityEvent();
+
+    public MyGameObjectEvent IngredientReceived = new MyGameObjectEvent();
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +52,12 @@ public class Receptacle : MonoBehaviour
         }
     }
 
+    public void OnIngredientLinked(GameObject ingredient)
+    {
+        LinkedIngredient2D = ingredient;
+        IngredientReceived.Invoke(this.gameObject);
+    }
+
     public void DiscardIngredient()
     {
         Destroy(LinkedIngredient2D);
@@ -56,6 +67,10 @@ public class Receptacle : MonoBehaviour
 
     bool IsIngredientTag(EIngredientTag tag)
     {
-        return LinkedIngredient2D.GetComponent<IngredientTag>().ingredientTag == tag;
+        if (LinkedIngredient2D)
+        {
+            return LinkedIngredient2D.GetComponent<IngredientTag>().ingredientTag == tag;
+        }
+        return false;
     }
 }

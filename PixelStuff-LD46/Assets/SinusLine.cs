@@ -49,6 +49,11 @@ private bool IsAlreadySnap = false;
 
     public SinusLine RefCurve;
 
+    public void ApplyMatchPercent(float matchPercent)
+    {
+
+    }
+
     public void ApplyOverAll(Vector3 data)
     {
         if (!IsAlreadySnap)

@@ -33,7 +33,7 @@ public class Ingredient : MonoBehaviour
             if (Receptacle != null)
             {
                 this.transform.position = Receptacle.transform.position;
-                Receptacle.GetComponent<Receptacle>().LinkedIngredient2D = this.gameObject;
+                Receptacle.GetComponent<Receptacle>().OnIngredientLinked(this.gameObject);
                 Destroy(this.GetComponent<BoxCollider2D>());
                 Destroy(this);
             }
