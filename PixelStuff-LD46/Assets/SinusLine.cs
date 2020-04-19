@@ -49,15 +49,20 @@ private bool IsAlreadySnap = false;
 
     public SinusLine RefCurve;
 
-    public void ApplyOverAll(Vector3 data)//float freqFactor, float dephFactor, float amplFactor)
+    public void ApplyOverAll(Vector3 data)
     {
-        var amplFactor = data.x;
-        var freqFactor = data.y;
-        var dephFactor = data.z;
-        Frequence = MinFrequence + (MaxFrequence - MinFrequence) * freqFactor;
-        Dephasage = MinDephasage + (MaxDephasage - MinDephasage) * dephFactor;
-        Amplitude = MinAmplitude + (MaxAmplitude - MinAmplitude) * amplFactor;
-        RecalculateAndSendMatchScore();
+        if (!IsAlreadySnap)
+        {
+            var amplFactor = data.x;
+            var freqFactor = data.y;
+            var dephFactor = data.z;
+
+            Amplitude = MinAmplitude + (MaxAmplitude - MinAmplitude) * amplFactor;
+            Frequence = MinFrequence + (MaxFrequence - MinFrequence) * freqFactor;
+            Dephasage = MinDephasage + (MaxDephasage - MinDephasage) * dephFactor;
+
+            RecalculateAndSendMatchScore();
+        }
     }
 
     public void ApplyOverAllFrequence(float factor)
@@ -103,7 +108,7 @@ private bool IsAlreadySnap = false;
         }
 
         MatchScoreChanged.Invoke(ScoreSum.ToString());
-        Debug.Log(1f - (Mathf.Min(1f, ScoreSum / MaxScore)) + " " + ScoreSum + " " + MaxScore + " " + Mathf.Min(1f, ScoreSum / MaxScore));
+        //Debug.Log(1f - (Mathf.Min(1f, ScoreSum / MaxScore)) + " " + ScoreSum + " " + MaxScore + " " + Mathf.Min(1f, ScoreSum / MaxScore));
         MatchPercent.Invoke(1f-(Mathf.Min(1f, ScoreSum/ MaxScore)));
     }
 

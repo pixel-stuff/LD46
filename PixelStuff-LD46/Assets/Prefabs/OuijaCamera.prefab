@@ -422,6 +422,7 @@ MonoBehaviour:
   amplitudeLess: {fileID: 6102357305539012890}
   offsetPlus: {fileID: 6102357305871153952}
   offsetLess: {fileID: 6102357306209353083}
+  OuijaCamera: {fileID: 2089828523354701388}
   data:
     m_PersistentCalls:
       m_Calls:

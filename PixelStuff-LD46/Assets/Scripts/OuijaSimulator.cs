@@ -14,6 +14,7 @@ public class OuijaSimulator : MonoBehaviour {
   [SerializeField] Transform offsetPlus;
   [SerializeField] Transform offsetLess;
 
+    public Camera OuijaCamera;
 
   [SerializeField] Vector3Event data;
 
@@ -46,7 +47,7 @@ public class OuijaSimulator : MonoBehaviour {
 
   float MousePositionProjectionIntoLessPlus(Vector3 less, Vector3 plus) {
     var lessPlusVector = plus - less;
-    var v3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    var v3 = OuijaCamera.ScreenToWorldPoint(Input.mousePosition);
     v3.z = 0.0f;
     var lessMouseVector = v3 - less;
     var val = Vector3.Dot(lessPlusVector.normalized, lessMouseVector) / Vector3.Distance(less, plus);
