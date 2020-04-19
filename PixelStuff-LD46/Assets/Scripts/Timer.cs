@@ -32,7 +32,7 @@ public class Timer : MonoBehaviour {
       tmp.x = loadingStartScale.x * currentTime / waitForXSec;
       transform.localScale = tmp;
       yield return new WaitForEndOfFrame();
-      Debug.Log("currenttime : " + currentTime + " / " + waitForXSec);
+      //Debug.Log("currenttime : " + currentTime + " / " + waitForXSec);
     } while(currentTime <= waitForXSec);
 
     transform.localScale = loadingStartScale;
