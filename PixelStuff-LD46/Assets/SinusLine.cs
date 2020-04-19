@@ -49,6 +49,17 @@ private bool IsAlreadySnap = false;
 
     public SinusLine RefCurve;
 
+    public void ApplyOverAll(Vector3 data)//float freqFactor, float dephFactor, float amplFactor)
+    {
+        var amplFactor = data.x;
+        var freqFactor = data.y;
+        var dephFactor = data.z;
+        Frequence = MinFrequence + (MaxFrequence - MinFrequence) * freqFactor;
+        Dephasage = MinDephasage + (MaxDephasage - MinDephasage) * dephFactor;
+        Amplitude = MinAmplitude + (MaxAmplitude - MinAmplitude) * amplFactor;
+        RecalculateAndSendMatchScore();
+    }
+
     public void ApplyOverAllFrequence(float factor)
     {
         Frequence = MinFrequence + (MaxFrequence - MinFrequence) * factor;
