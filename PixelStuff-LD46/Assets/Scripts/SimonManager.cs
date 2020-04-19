@@ -35,6 +35,10 @@ public class SimonManager : MonoBehaviour {
     playerSequence = new List<Receptacle>();
   }
 
+  public void Start() {
+    CreateSequence(3);
+  }
+
   public void CreateSequence(int numberOfItemToPick = 3) {
     if(numberOfItemToPick > receptacles.Length) {
       numberOfItemToPick = receptacles.Length;
