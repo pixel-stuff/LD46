@@ -12,5 +12,11 @@ public class IngredientTag : MonoBehaviour
 public enum EIngredientTag
 {
     Flamme,
+    tete,
+    os,
+    intestin,
+    cyboulette,
+    carotte,
+    oeil,
     toto
 }
