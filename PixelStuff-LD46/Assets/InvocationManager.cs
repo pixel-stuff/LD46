@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class InvocationManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class InvocationManager : MonoBehaviour
     public UnityEvent InvocationStarted = new UnityEvent();
     public UnityEvent AnimationOver = new UnityEvent();
     private int currentInvocationIndex = 0;
+
+    public string NextScene = "Menu";
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +60,7 @@ public class InvocationManager : MonoBehaviour
         if(currentInvocationIndex == Invocations.Count)
         {
             //GotoNext Level
+            SceneManager.LoadScene(NextScene, LoadSceneMode.Single);
             return;
         }
 
