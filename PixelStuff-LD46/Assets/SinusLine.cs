@@ -49,6 +49,14 @@ private bool IsAlreadySnap = false;
 
     public SinusLine RefCurve;
 
+    public void ApplyOverAll(float freqFactor, float dephFactor, float amplFactor)
+    {
+        Frequence = MinFrequence + (MaxFrequence - MinFrequence) * freqFactor;
+        Dephasage = MinDephasage + (MaxDephasage - MinDephasage) * dephFactor;
+        Amplitude = MinAmplitude + (MaxAmplitude - MinAmplitude) * amplFactor;
+        RecalculateAndSendMatchScore();
+    }
+
     public void ApplyOverAllFrequence(float factor)
     {
         Frequence = MinFrequence + (MaxFrequence - MinFrequence) * factor;
