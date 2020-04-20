@@ -135,6 +135,7 @@ public class SimonManager : MonoBehaviour {
     }
 
     if(currentSequence.Count == playerSequence.Count) {
+      completion = 1.0f;
       Completion.Invoke(completion);
       CheckPlayerSequence();
     } else if(playerSequence[index].isGoodanswer) {
@@ -193,7 +194,6 @@ public class SimonManager : MonoBehaviour {
     yield return new WaitForSeconds(1.5f);
 
     if(isGoodInvocation) {
-      completion = 1.0f;
       SimonSucceed.Invoke();
     } else {
       SimonFailed.Invoke();
