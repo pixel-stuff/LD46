@@ -98,11 +98,7 @@ public class SimonManager : MonoBehaviour {
   }
 
   public void RedoSameSequence() {
-    foreach(var o in receptacles) {
-      o.spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
-      o.DiscardIngredient();
-    }
-    StartCoroutine(SequenceApparition());
+        CreateSequence(playerSequence.Count);
   }
 
   IEnumerator SequenceApparition() {
