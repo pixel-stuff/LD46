@@ -34,6 +34,9 @@ public class SimonManager : MonoBehaviour {
   [Header("Control")]
   [SerializeField] float step = 4f;
 
+  [Header("Animation")]
+  [SerializeField] GameObject[] countdown;
+
 
   [Header("Event")]
   [SerializeField] UnityEvent StartSequence;
@@ -52,6 +55,7 @@ public class SimonManager : MonoBehaviour {
   private void Awake() {
     currentSequence = new List<Iteration>();
     playerSequence = new List<PlayerIteration>();
+    foreach(var go in countdown) { go.SetActive(false); }
   }
 
   public void CreateSequence(int numberOfItemToPick = 3) {
@@ -89,20 +93,26 @@ public class SimonManager : MonoBehaviour {
   }
 
   IEnumerator SequenceCreated() {
+    var index = 0;
+    for(var i = 0; i < countdown.Count(); i++) {
+      countdown[i].SetActive(true);
+      yield return new WaitForSeconds(1.0f);
+      foreach(var go in countdown) { go.SetActive(false); }
+    }
 
     var currentColor = new Color(1.0f, 1.0f, 1.0f, 0.0f);
     foreach(var iteration in currentSequence) {
       currentColor.a = 0.0f;
 
       do {
-        currentColor.a += step/100f;
+        currentColor.a += step / 100f;
         iteration.receptacle.spriteRenderer.color = currentColor;
 
         yield return new WaitForEndOfFrame();
       } while(currentColor.a < 1.0f);
 
       do {
-        currentColor.a -= step/100f;
+        currentColor.a -= step / 100f;
         iteration.receptacle.spriteRenderer.color = currentColor;
 
         yield return new WaitForEndOfFrame();
@@ -115,7 +125,7 @@ public class SimonManager : MonoBehaviour {
   public void ReceptacleReceivedIngredient(Receptacle recep) {
     playerSequence.Add(new PlayerIteration() { receptacle = recep, isGoodanswer = false });
 
-    var index = playerSequence.Count - 1; 
+    var index = playerSequence.Count - 1;
     if(recep.IsIngredientTag(currentSequence[index].simonIngredient.tag)) {
       playerSequence[index].isGoodanswer = true;
     }
