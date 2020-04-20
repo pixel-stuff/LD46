@@ -41,6 +41,13 @@ public class Timer : MonoBehaviour {
     transform.gameObject.SetActive(false);
   }
 
+  public void PauseTime() {
+    if(corout != null) {
+      StopCoroutine(corout);
+      corout = null;
+    }
+  }
+
   IEnumerator TimerCorout(float waitForXSec) {
     Vector3 tmp = loadingStartScale;
     float currentTime;

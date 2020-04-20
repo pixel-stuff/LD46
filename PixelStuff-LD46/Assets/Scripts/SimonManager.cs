@@ -45,6 +45,7 @@ public class SimonManager : MonoBehaviour {
   [SerializeField] UnityEvent StartSequence;
   [SerializeField] UnityEvent ComputeSequence;
   [SerializeField] MyFloatEvent Completion;
+  [SerializeField] UnityEvent StartEndAnimation;
   [SerializeField] UnityEvent SimonSucceed;
   [SerializeField] UnityEvent SimonFailed;
 
@@ -134,13 +135,17 @@ public class SimonManager : MonoBehaviour {
       playerSequence[index].isGoodanswer = true;
     }
 
+    if(playerSequence[index].isGoodanswer) {
+      if(currentSequence.Count == playerSequence.Count) {
+        completion = 1.0f;
+      } else {
+        completion += 1.0f / currentSequence.Count;
+      }
+      Completion.Invoke(completion);
+    }
+
     if(currentSequence.Count == playerSequence.Count) {
-      completion = 1.0f;
-      Completion.Invoke(completion);
       CheckPlayerSequence();
-    } else if(playerSequence[index].isGoodanswer) {
-      completion += 1.0f / currentSequence.Count;
-      Completion.Invoke(completion);
     }
   }
 
@@ -165,6 +170,8 @@ public class SimonManager : MonoBehaviour {
   public void TimerEnd() => CheckPlayerSequence();
 
   public void CheckPlayerSequence() {
+    StartEndAnimation.Invoke();
+
     if(currentSequence.Count != playerSequence.Count) {
       StartCoroutine(EndAnimation(false));
     }
