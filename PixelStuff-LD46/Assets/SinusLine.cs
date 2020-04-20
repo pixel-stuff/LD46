@@ -116,6 +116,10 @@ private bool IsAlreadySnap = false;
         }
         MatchPercentValue = v_end;
         MatchPercent.Invoke(v_end);
+    }
+
+    public void InvocationSucced()
+    {
         if (MatchPercentValue == 1f)
         {
             CurveMatch.Invoke();
@@ -137,6 +141,21 @@ private bool IsAlreadySnap = false;
         StartCoroutine(ChangeTimeMultiAl(TimeMultiplicatorAlternate, TimeMultiplicator * (1 - matchPercent), 2f));
 
         StartCoroutine(ChangeMatchPercent(MatchPercentValue, matchPercent, 2f));
+
+    }
+
+    public void Apply0MatchPercent()
+    {
+        StartCoroutine(ChangeFreq(Frequence, RefCurve.Frequence + (1 - 0) * (MaxFrequence - MinFrequence), 2f));
+        StartCoroutine(ChangeAmpl(Amplitude, RefCurve.Amplitude + (1 - 0) * (MaxAmplitude - MinAmplitude), 2f));
+        StartCoroutine(ChangeDeph(Dephasage, RefCurve.Dephasage + (1 - 0) * (MaxDephasage - MinDephasage), 2f));
+
+        //RecalculateAndSendMatchScore();
+        StartCoroutine(ChangeTimeMultiAl(TimeMultiplicatorAlternate, TimeMultiplicator * (1 - 0), 2f));
+
+        //StartCoroutine(ChangeMatchPercent(MatchPercentValue, 0, 2f));
+        MatchPercentValue = 0f;
+        MatchPercent.Invoke(0f);
     }
 
     public void ApplyOverAll(Vector3 data)

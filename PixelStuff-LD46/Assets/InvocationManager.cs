@@ -19,6 +19,7 @@ public class InvocationManager : MonoBehaviour
     private int currentInvocationIndex = 0;
 
     public int TryBeforeDeath = 2;
+    int CurrentTryBeforeDeath = 2;
     public int CollierZOffset = 10;
     public GameObject DeathGameObject;
 
@@ -26,7 +27,8 @@ public class InvocationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(Invocations.Count > 0)
+        CurrentTryBeforeDeath = TryBeforeDeath;
+        if (Invocations.Count > 0)
         {
             InitInvocation(Invocations[currentInvocationIndex]);
         }
@@ -40,15 +42,18 @@ public class InvocationManager : MonoBehaviour
 
     public void ConsumeTry()
     {
-        TryBeforeDeath--;
+        CurrentTryBeforeDeath--;
         StartCoroutine(Move(3f, 1));
         
     }
 
     public void RestaureTry()
     {
-        TryBeforeDeath++;
-        StartCoroutine(Move(3f, -1));
+        if (CurrentTryBeforeDeath < TryBeforeDeath)
+        {
+            CurrentTryBeforeDeath++;
+            StartCoroutine(Move(3f, -1));
+        }
 
     }
 
@@ -69,7 +74,7 @@ public class InvocationManager : MonoBehaviour
             yield return null;
         }
 
-        if (TryBeforeDeath == 0)
+        if (CurrentTryBeforeDeath == 0)
         {
             SceneManager.LoadScene(NextScene, LoadSceneMode.Single);
         }
