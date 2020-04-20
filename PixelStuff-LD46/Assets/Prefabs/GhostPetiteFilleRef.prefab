@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5447726393583077346}
   - component: {fileID: 4557700752547731359}
   - component: {fileID: 2652259871715297816}
-  m_Layer: 0
-  m_Name: fille controller 1
+  m_Layer: 9
+  m_Name: GhostPetiteFilleRef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1541657530717842941}
-  m_LocalRotation: {x: -0.11951001, y: 0.015627863, z: -0.0018814496, w: -0.9927082}
+  m_LocalRotation: {x: -0.14189133, y: 0.015581682, z: -0.0022337593, w: -0.98975706}
   m_LocalPosition: {x: -0.15862289, y: -0.6, z: 0.7006167}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4926,7 +4926,7 @@ GameObject:
   - component: {fileID: 122727736907942670}
   - component: {fileID: 3654783741596782793}
   - component: {fileID: 6416387208788808255}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: fire (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9668,7 +9668,7 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
 --- !u!1 &3245890905991308097
 GameObject:
   m_ObjectHideFlags: 0
@@ -9779,7 +9779,7 @@ GameObject:
   - component: {fileID: 3696649278204606674}
   - component: {fileID: 1240758749256782104}
   - component: {fileID: 8063869996339673678}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: fire (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14521,7 +14521,7 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
 --- !u!1 &4624502427288149707
 GameObject:
   m_ObjectHideFlags: 0
@@ -14657,7 +14657,7 @@ GameObject:
   - component: {fileID: 4801165153695019254}
   - component: {fileID: 4801165153695019255}
   - component: {fileID: 4801165153695019248}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ghost smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19399,7 +19399,7 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
 --- !u!1 &4801165154073045767
 GameObject:
   m_ObjectHideFlags: 0
@@ -19411,7 +19411,7 @@ GameObject:
   - component: {fileID: 4801165154073045764}
   - component: {fileID: 4801165154073045765}
   - component: {fileID: 4801165154073045766}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: vfx_ghostaura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24153,7 +24153,7 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
 --- !u!1 &4801165154164811229
 GameObject:
   m_ObjectHideFlags: 0
@@ -24165,7 +24165,7 @@ GameObject:
   - component: {fileID: 4801165154164811203}
   - component: {fileID: 4801165154164811228}
   - component: {fileID: 4801165154164811202}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: petitefille
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24234,7 +24234,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!95 &4801165154164811202
 Animator:
@@ -24266,7 +24266,7 @@ GameObject:
   - component: {fileID: 4993506583049788978}
   - component: {fileID: 4993506583049788979}
   - component: {fileID: 4993506583049788988}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: fire (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29008,7 +29008,7 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
 --- !u!1 &8604626927143627108
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,8 +23,8 @@ public class MaskSlideComponent : MonoBehaviour
     {
         if (TargetSprite)
         {
-            this.transform.localPosition = new Vector3(0, -VisibleFactor * TargetSprite.bounds.size.y*2, 0);
-            TargetSprite.transform.localPosition = new Vector3(0, VisibleFactor * TargetSprite.bounds.size.y*2, 0);
+            this.transform.localPosition = new Vector3(0, -VisibleFactor * this.GetComponent<SpriteMask>().bounds.size.y, 0);
+            TargetSprite.transform.localPosition = new Vector3(0, VisibleFactor * this.GetComponent<SpriteMask>().bounds.size.y, 0);
         }
         if (TargetMask)
             TargetMask.transform.localPosition = new Vector3(0, VisibleFactor * TargetMask.bounds.size.y*2 * MaskFactor, 0);
