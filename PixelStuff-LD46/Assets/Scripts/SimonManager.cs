@@ -52,7 +52,10 @@ public class SimonManager : MonoBehaviour {
     completion = 0.0f;
     currentSequence.Clear();
     playerSequence.Clear();
-    foreach(var o in receptacles) { o.spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, 0.0f); }
+    foreach(var o in receptacles) {
+      o.spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+      o.DiscardIngredient();
+    }
     ingredientReceived = 0;
 
     for(var i = 0; i < numberOfItemToPick; i++) {
