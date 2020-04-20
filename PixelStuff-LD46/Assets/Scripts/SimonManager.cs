@@ -31,6 +31,10 @@ public class SimonManager : MonoBehaviour {
   [Header("Position to use")]
   [SerializeField] Receptacle[] receptacles;
 
+  [Header("Control")]
+  [SerializeField] float step = 4f;
+
+
   [Header("Event")]
   [SerializeField] UnityEvent StartSequence;
   [SerializeField] MyFloatEvent Completion;
@@ -86,20 +90,19 @@ public class SimonManager : MonoBehaviour {
 
   IEnumerator SequenceCreated() {
 
-    var step = 0.02f;
     var currentColor = new Color(1.0f, 1.0f, 1.0f, 0.0f);
     foreach(var iteration in currentSequence) {
       currentColor.a = 0.0f;
 
       do {
-        currentColor.a += step;
+        currentColor.a += step/100f;
         iteration.receptacle.spriteRenderer.color = currentColor;
 
         yield return new WaitForEndOfFrame();
       } while(currentColor.a < 1.0f);
 
       do {
-        currentColor.a -= step;
+        currentColor.a -= step/100f;
         iteration.receptacle.spriteRenderer.color = currentColor;
 
         yield return new WaitForEndOfFrame();
