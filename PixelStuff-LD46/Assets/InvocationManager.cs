@@ -41,11 +41,18 @@ public class InvocationManager : MonoBehaviour
     public void ConsumeTry()
     {
         TryBeforeDeath--;
-        StartCoroutine(Move(3f));
+        StartCoroutine(Move(3f, 1));
         
     }
 
-    public IEnumerator Move(float duration)
+    public void RestaureTry()
+    {
+        TryBeforeDeath++;
+        StartCoroutine(Move(3f, -1));
+
+    }
+
+    public IEnumerator Move(float duration, int signe)
     {
         Vector3 originalPos = DeathGameObject.transform.position;
 
@@ -55,7 +62,7 @@ public class InvocationManager : MonoBehaviour
         {
             float newz = Mathf.Lerp(0, CollierZOffset, elapsed / duration);
 
-            DeathGameObject.transform.position = originalPos + new Vector3(0, 0, newz);
+            DeathGameObject.transform.position = originalPos + new Vector3(0, 0, signe*newz);
 
             elapsed += Time.deltaTime;
 
