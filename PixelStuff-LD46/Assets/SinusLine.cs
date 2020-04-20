@@ -122,6 +122,11 @@ private bool IsAlreadySnap = false;
         }
     }
 
+    public void ApplyPerfectMatchPercent()
+    {
+        ApplyMatchPercent(1f);
+    }
+
     public void ApplyMatchPercent(float matchPercent)
     {
         StartCoroutine(ChangeFreq(Frequence, RefCurve.Frequence + (1 - matchPercent)* (MaxFrequence - MinFrequence), 2f));

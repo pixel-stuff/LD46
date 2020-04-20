@@ -18,5 +18,6 @@ public enum EIngredientTag
     cyboulette,
     carotte,
     oeil,
-    toto
+    toto,
+    none
 }

@@ -12,6 +12,13 @@ public class Iteration {
 }
 
 [Serializable]
+public class PlayerIteration {
+  public bool isGoodanswer;
+  public Receptacle receptacle;
+}
+
+
+[Serializable]
 public class SimonIngredient {
   public Sprite ingredientSprite;
   public EIngredientTag tag;
@@ -32,14 +39,14 @@ public class SimonManager : MonoBehaviour {
   List<Receptacle> tmpReceptacle;
   List<SimonIngredient> tmpSimonIngredient;
   List<Iteration> currentSequence;
-  List<Receptacle> playerSequence;
+  List<PlayerIteration> playerSequence;
 
   int ingredientReceived;
   float completion;
 
   private void Awake() {
     currentSequence = new List<Iteration>();
-    playerSequence = new List<Receptacle>();
+    playerSequence = new List<PlayerIteration>();
   }
 
   public void CreateSequence(int numberOfItemToPick = 3) {
@@ -50,9 +57,13 @@ public class SimonManager : MonoBehaviour {
     tmpSimonIngredient = new List<SimonIngredient>(simonIngredients);
     tmpReceptacle = new List<Receptacle>(receptacles);
     completion = 0.0f;
+    Completion.Invoke(completion);
     currentSequence.Clear();
     playerSequence.Clear();
-    foreach(var o in receptacles) { o.spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, 0.0f); }
+    foreach(var o in receptacles) {
+      o.spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+      o.DiscardIngredient();
+    }
     ingredientReceived = 0;
 
     for(var i = 0; i < numberOfItemToPick; i++) {
@@ -97,33 +108,37 @@ public class SimonManager : MonoBehaviour {
   }
 
   public void ReceptacleReceivedIngredient(Receptacle recep) {
-    playerSequence.Add(recep);
+    playerSequence.Add(new PlayerIteration() { receptacle = recep, isGoodanswer = false });
 
-    var index = playerSequence.Count - 1;
-
+    var index = playerSequence.Count - 1; 
     if(recep.IsIngredientTag(currentSequence[index].simonIngredient.tag)) {
-      completion += 1 / currentSequence.Count;
-      Completion.Invoke(completion);
+      playerSequence[index].isGoodanswer = true;
     }
+
+
+   
 
     if(currentSequence.Count == playerSequence.Count) {
       CheckPlayerSequence();
+    } else if(playerSequence[index].isGoodanswer) {
+      completion += 1.0f / currentSequence.Count;
+      Completion.Invoke(completion);
     }
+
   }
 
   public void ReceptacleRemovedIngredient(Receptacle recep) {
-    //Debug.Log("Mathias TODO bidobido 2");
-    var index = playerSequence.IndexOf(recep);
+    var index = playerSequence.FindIndex(r => r.receptacle == recep);
 
-    if(recep.IsIngredientTag(currentSequence[index].simonIngredient.tag)) {
-      completion -= 1 / currentSequence.Count;
+    if(playerSequence[index].isGoodanswer) {
+      completion -= 1.0f / currentSequence.Count;
       Completion.Invoke(completion);
     }
     playerSequence.RemoveAt(index);
   }
 
   public bool IsLastReceptacle(Receptacle recep) {
-    if(playerSequence.Last() == recep) {
+    if(playerSequence.Last().receptacle == recep) {
       return true;
     }
     return false;
@@ -137,7 +152,7 @@ public class SimonManager : MonoBehaviour {
     }
 
     for(var i = 0; i < playerSequence.Count; i++) {
-      if(!playerSequence[i].IsIngredientTag(currentSequence[i].simonIngredient.tag)) {
+      if(!playerSequence[i].receptacle.IsIngredientTag(currentSequence[i].simonIngredient.tag)) {
         SimonFailed.Invoke();
         return false;
       }

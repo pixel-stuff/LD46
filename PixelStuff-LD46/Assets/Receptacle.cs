@@ -57,6 +57,7 @@ public class Receptacle : MonoBehaviour
         if (LinkedIngredient2D != null && Input.GetKeyDown(KeyCode.Mouse1))
         {
             DiscardIngredient();
+            IngredientRemoved.Invoke(this);
         }
     }
 
@@ -68,12 +69,23 @@ public class Receptacle : MonoBehaviour
 
     public void DiscardIngredient()
     {
-        Destroy(LinkedIngredient2D);
-        LinkedIngredient2D = null;
-        IngredientRemoved.Invoke(this);
+        if (LinkedIngredient2D)
+        {
+            Destroy(LinkedIngredient2D);
+            LinkedIngredient2D = null;
+
+        }
     }
 
-    public bool IsIngredientTag(EIngredientTag tag)
+  public EIngredientTag GetLinkIngredientTag() {
+    if(GetComponent<IngredientTag>() != null) {
+      return LinkedIngredient2D.GetComponent<IngredientTag>().ingredientTag;
+    } else {
+      return EIngredientTag.none;
+    }
+  }
+
+  public bool IsIngredientTag(EIngredientTag tag)
     {
         if (LinkedIngredient2D)
         {
