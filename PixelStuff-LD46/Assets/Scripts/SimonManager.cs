@@ -36,10 +36,14 @@ public class SimonManager : MonoBehaviour {
 
   [Header("Animation")]
   [SerializeField] GameObject[] countdown;
+  [Space]
+  [SerializeField] ParticleSystem GoodInvocation;
+  [SerializeField] ParticleSystem BadInvocation;
 
 
   [Header("Event")]
   [SerializeField] UnityEvent StartSequence;
+  [SerializeField] UnityEvent ComputeSequence;
   [SerializeField] MyFloatEvent Completion;
   [SerializeField] UnityEvent SimonSucceed;
   [SerializeField] UnityEvent SimonFailed;
@@ -66,7 +70,7 @@ public class SimonManager : MonoBehaviour {
     tmpSimonIngredient = new List<SimonIngredient>(simonIngredients);
     tmpReceptacle = new List<Receptacle>(receptacles);
     completion = 0.0f;
-    Completion.Invoke(completion);
+    ComputeSequence.Invoke();
     currentSequence.Clear();
     playerSequence.Clear();
     foreach(var o in receptacles) {
@@ -158,23 +162,42 @@ public class SimonManager : MonoBehaviour {
 
   public void TimerEnd() => CheckPlayerSequence();
 
-  public bool CheckPlayerSequence() {
+  public void CheckPlayerSequence() {
     if(currentSequence.Count != playerSequence.Count) {
-      SimonFailed.Invoke();
-      return false;
+      StartCoroutine(EndAnimation(false));
     }
 
     for(var i = 0; i < playerSequence.Count; i++) {
       if(!playerSequence[i].receptacle.IsIngredientTag(currentSequence[i].simonIngredient.tag)) {
-        SimonFailed.Invoke();
-        return false;
+        StartCoroutine(EndAnimation(false));
       }
     }
 
-    completion = 1.0f;
-    Completion.Invoke(completion);
-    SimonSucceed.Invoke();
-    return true;
+    StartCoroutine(EndAnimation(true));
+  }
+
+  IEnumerator EndAnimation(bool isGoodInvocation) {
+
+    foreach(var it in currentSequence) {
+      it.receptacle.DiscardIngredient();
+      yield return new WaitForSeconds(0.8f);
+    }
+
+    if(isGoodInvocation) {
+      GoodInvocation.Play();
+    } else {
+      BadInvocation.Play();
+    }
+
+    yield return new WaitForSeconds(1.5f);
+
+    if(isGoodInvocation) {
+      completion = 1.0f;
+      Completion.Invoke(completion);
+      SimonSucceed.Invoke();
+    } else {
+      SimonFailed.Invoke();
+    }
   }
 
 }
