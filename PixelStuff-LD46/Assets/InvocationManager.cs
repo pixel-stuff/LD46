@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
+public class MyIntEvent : UnityEvent<int>
+{ }
 public class InvocationManager : MonoBehaviour
 {
     public List<InvocationConfig> Invocations = new List<InvocationConfig>();
@@ -13,7 +16,7 @@ public class InvocationManager : MonoBehaviour
     public List<GameObject> InvocationGameObjects = new List<GameObject>();
 
     public SinusLine RefCurve;
-    public UnityEvent InitInvocationEvent = new UnityEvent();
+    public MyIntEvent InitInvocationEvent = new MyIntEvent();
     public UnityEvent InvocationStarted = new UnityEvent();
     public UnityEvent AnimationOver = new UnityEvent();
     private int currentInvocationIndex = 0;
@@ -93,7 +96,7 @@ public class InvocationManager : MonoBehaviour
         //resetMask
         invoke.GetComponentInChildren<MaskSlideComponent>().VisibleFactor = 0f;
 
-        InitInvocationEvent.Invoke();
+        InitInvocationEvent.Invoke(2 + currentInvocationIndex);
     }
 
     public void InvocationStart()
