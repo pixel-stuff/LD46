@@ -50,6 +50,7 @@ public class SimonManager : MonoBehaviour {
     tmpSimonIngredient = new List<SimonIngredient>(simonIngredients);
     tmpReceptacle = new List<Receptacle>(receptacles);
     completion = 0.0f;
+    Completion.Invoke(completion);
     currentSequence.Clear();
     playerSequence.Clear();
     foreach(var o in receptacles) {
@@ -104,11 +105,10 @@ public class SimonManager : MonoBehaviour {
 
     var index = playerSequence.Count - 1;
 
-
     if(currentSequence.Count == playerSequence.Count) {
       CheckPlayerSequence();
     } else if(recep.IsIngredientTag(currentSequence[index].simonIngredient.tag)) {
-      completion += 1 / currentSequence.Count;
+      completion += 1.0f / currentSequence.Count;
       Completion.Invoke(completion);
     }
 
@@ -119,7 +119,7 @@ public class SimonManager : MonoBehaviour {
     var index = playerSequence.IndexOf(recep);
 
     if(recep.IsIngredientTag(currentSequence[index].simonIngredient.tag)) {
-      completion -= 1 / currentSequence.Count;
+      completion -= 1.0f / currentSequence.Count;
       Completion.Invoke(completion);
     }
     playerSequence.RemoveAt(index);
