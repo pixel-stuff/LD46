@@ -77,7 +77,15 @@ public class Receptacle : MonoBehaviour
         }
     }
 
-    public bool IsIngredientTag(EIngredientTag tag)
+  public EIngredientTag GetLinkIngredientTag() {
+    if(GetComponent<IngredientTag>() != null) {
+      return LinkedIngredient2D.GetComponent<IngredientTag>().ingredientTag;
+    } else {
+      return EIngredientTag.none;
+    }
+  }
+
+  public bool IsIngredientTag(EIngredientTag tag)
     {
         if (LinkedIngredient2D)
         {
