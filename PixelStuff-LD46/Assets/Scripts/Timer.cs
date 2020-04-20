@@ -15,6 +15,7 @@ public class Timer : MonoBehaviour {
 
   float timeCoroutStarted;
   Vector3 loadingStartScale;
+  IEnumerator corout;
 
   public void Awake() {
     loadingStartScale = transform.localScale;
@@ -22,10 +23,20 @@ public class Timer : MonoBehaviour {
   }
 
   public void StartTimer(float waitForXSec = 10) {
+    StopTimer(); // just to be sure ! 
+
     TimerStart.Invoke();
     transform.gameObject.SetActive(true);
     timeCoroutStarted = Time.time;
-    StartCoroutine(TimerCorout(waitForXSec));
+    corout = TimerCorout(waitForXSec);
+    StartCoroutine(corout);
+  }
+
+  public void StopTimer() {
+    if(corout != null) {
+      StopCoroutine(corout);
+      corout = null;
+    }
   }
 
   IEnumerator TimerCorout(float waitForXSec) {
@@ -46,6 +57,7 @@ public class Timer : MonoBehaviour {
 
     transform.localScale = Vector3.zero;
     transform.gameObject.SetActive(false);
+    corout = null;
     TimerEnd.Invoke();
   }
 
