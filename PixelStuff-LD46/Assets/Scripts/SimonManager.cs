@@ -178,15 +178,18 @@ public class SimonManager : MonoBehaviour {
   public void TimerEnd() => CheckPlayerSequence();
 
   public void CheckPlayerSequence() {
+
     StartEndAnimation.Invoke();
 
     if(currentSequence.Count != playerSequence.Count) {
       StartCoroutine(EndAnimation(false));
+      return;
     }
 
     for(var i = 0; i < playerSequence.Count; i++) {
       if(!playerSequence[i].receptacle.IsIngredientTag(currentSequence[i].simonIngredient.tag)) {
         StartCoroutine(EndAnimation(false));
+        return;
       }
     }
 
@@ -194,7 +197,6 @@ public class SimonManager : MonoBehaviour {
   }
 
   IEnumerator EndAnimation(bool isGoodInvocation) {
-
     foreach(var it in currentSequence) {
       it.receptacle.DiscardIngredient();
       yield return new WaitForSeconds(0.8f);
@@ -206,7 +208,7 @@ public class SimonManager : MonoBehaviour {
       BadInvocation.Play();
     }
 
-    yield return new WaitForSeconds(1.5f);
+    yield return new WaitForSeconds(2.5f);
 
     if(isGoodInvocation) {
       SimonSucceed.Invoke();
