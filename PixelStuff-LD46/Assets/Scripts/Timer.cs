@@ -14,11 +14,11 @@ public class Timer : MonoBehaviour {
   [SerializeField] UnityEvent TimerEnd;
 
   float timeCoroutStarted;
-  Vector2 loadingStartScale;
+  Vector2 loadingStartSize;
   IEnumerator corout;
 
   public void Awake() {
-    loadingStartScale = rectTransform.sizeDelta;
+    loadingStartSize = rectTransform.sizeDelta;
     rectTransform.gameObject.SetActive(false);
   }
 
@@ -37,7 +37,7 @@ public class Timer : MonoBehaviour {
       StopCoroutine(corout);
       corout = null;
     }
-    rectTransform.localScale = Vector3.zero;
+    rectTransform.sizeDelta = Vector2.zero;
     rectTransform.gameObject.SetActive(false);
   }
 
@@ -49,22 +49,22 @@ public class Timer : MonoBehaviour {
   }
 
   IEnumerator TimerCorout(float waitForXSec) {
-    Vector2 tmp = loadingStartScale;
+    Vector2 tmp = loadingStartSize;
     float currentTime;
     do {
       currentTime = Time.time - timeCoroutStarted;
       if(x) {
-        tmp.x = loadingStartScale.x - loadingStartScale.x * currentTime / waitForXSec;
+        tmp.x = loadingStartSize.x - loadingStartSize.x * currentTime / waitForXSec;
       }
       if(y) {
-        tmp.y = loadingStartScale.y - loadingStartScale.y * currentTime / waitForXSec;
+        tmp.y = loadingStartSize.y - loadingStartSize.y * currentTime / waitForXSec;
       }
-      rectTransform.localScale = tmp;
-      yield return new WaitForEndOfFrame();
+      rectTransform.sizeDelta = tmp;
+      yield return new WaitForSeconds(Time.deltaTime);
       //Debug.Log("currenttime : " + currentTime + " / " + waitForXSec);
     } while(currentTime <= waitForXSec);
 
-    rectTransform.localScale = Vector2.zero;
+    rectTransform.sizeDelta = Vector2.zero;
     rectTransform.gameObject.SetActive(false);
     corout = null;
     TimerEnd.Invoke();
