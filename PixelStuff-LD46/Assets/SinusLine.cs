@@ -19,6 +19,7 @@ public class SinusLine : MonoBehaviour
     public MyStringEvent MatchScoreChanged = new MyStringEvent();
     public UnityEvent CurveMatch = new UnityEvent();
     public MyFloatEvent MatchPercent = new MyFloatEvent();
+    public UnityEvent Match100percent = new UnityEvent();
 
     [SerializeField]
     public List<Line> Lines = new List<Line>();// = new List<Line>();
@@ -116,6 +117,7 @@ private bool IsAlreadySnap = false;
         }
         MatchPercentValue = v_end;
         MatchPercent.Invoke(v_end);
+
     }
 
     public void InvocationSucced()
@@ -141,6 +143,11 @@ private bool IsAlreadySnap = false;
         StartCoroutine(ChangeTimeMultiAl(TimeMultiplicatorAlternate, TimeMultiplicator * (1 - matchPercent), 2f));
 
         StartCoroutine(ChangeMatchPercent(MatchPercentValue, matchPercent, 2f));
+
+        if (matchPercent == 1f)
+        {
+            Match100percent.Invoke();
+        }
 
     }
 

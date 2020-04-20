@@ -171,13 +171,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 4a3c6621e108a44d5aa688d94afe4bb6, type: 3}
     m_FontSize: 33
     m_FontStyle: 0
     m_BestFit: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Retry
+  m_Text: I'll do better, let me retry
 --- !u!222 &224523857
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -410,8 +410,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9, y: -285}
-  m_SizeDelta: {x: 189.92, y: 136.6}
+  m_AnchoredPosition: {x: 13.2, y: -81.12}
+  m_SizeDelta: {x: 509.02, y: 106.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &570553553
 MonoBehaviour:
@@ -433,9 +433,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_NormalColor: {r: 0.15806337, g: 0.791322, b: 0.9056604, a: 1}
+    m_HighlightedColor: {r: 0.47912958, g: 0.8211943, b: 0.9150943, a: 1}
+    m_PressedColor: {r: 0.1788003, g: 0.74763894, b: 0.7735849, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -456,7 +456,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 570553556}
+      - m_Target: {fileID: 0}
         m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
@@ -549,8 +549,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9, y: 105.7}
-  m_SizeDelta: {x: 639.7, y: 321}
+  m_AnchoredPosition: {x: 9, y: 84}
+  m_SizeDelta: {x: 1084.8, y: 603.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &884126487
 MonoBehaviour:
@@ -571,8 +571,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 97
+    m_Font: {fileID: 12800000, guid: 3c078309c0d284d478b1b2a1c5df491e, type: 3}
+    m_FontSize: 49
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -583,7 +583,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: You died
+  m_Text: "'' Playing with the dead can be dangerous, \nyou learned it the hard way.
+    ''"
 --- !u!222 &884126488
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -814,7 +815,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: faae0ad8d1d164005aefca2d7de0602e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dffd2178f450b47e19ce0a695dc5773c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
