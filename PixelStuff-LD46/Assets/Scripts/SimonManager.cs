@@ -101,14 +101,14 @@ public class SimonManager : MonoBehaviour {
 
     var index = playerSequence.Count - 1;
 
-    if(recep.IsIngredientTag(currentSequence[index].simonIngredient.tag)) {
+
+    if(currentSequence.Count == playerSequence.Count) {
+      CheckPlayerSequence();
+    } else if(recep.IsIngredientTag(currentSequence[index].simonIngredient.tag)) {
       completion += 1 / currentSequence.Count;
       Completion.Invoke(completion);
     }
 
-    if(currentSequence.Count == playerSequence.Count) {
-      CheckPlayerSequence();
-    }
   }
 
   public void ReceptacleRemovedIngredient(Receptacle recep) {
