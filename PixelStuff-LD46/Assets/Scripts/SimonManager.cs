@@ -121,14 +121,14 @@ public class SimonManager : MonoBehaviour {
         currentColor.a += step / 100f;
         iteration.receptacle.spriteRenderer.color = currentColor;
 
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(0.1f);
       } while(currentColor.a < 1.0f);
 
       do {
         currentColor.a -= step / 100f;
         iteration.receptacle.spriteRenderer.color = currentColor;
 
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(0.1f);
       } while(currentColor.a > 0.0f);
     }
 
