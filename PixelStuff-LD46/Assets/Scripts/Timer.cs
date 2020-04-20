@@ -37,6 +37,8 @@ public class Timer : MonoBehaviour {
       StopCoroutine(corout);
       corout = null;
     }
+    transform.localScale = Vector3.zero;
+    transform.gameObject.SetActive(false);
   }
 
   IEnumerator TimerCorout(float waitForXSec) {
