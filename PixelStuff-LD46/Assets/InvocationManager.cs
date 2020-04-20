@@ -74,7 +74,7 @@ public class InvocationManager : MonoBehaviour
             yield return null;
         }
 
-        if (CurrentTryBeforeDeath == 0)
+        if (CurrentTryBeforeDeath <= 0)
         {
             SceneManager.LoadScene(NextScene, LoadSceneMode.Single);
         }
