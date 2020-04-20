@@ -31,7 +31,7 @@ public class IngredientContainer : MonoBehaviour
     // The mesh goes red when the mouse is over it...
     void OnMouseEnter()
     {
-        rend.color = Color.red;
+     //   rend.color = Color.red;
     }
 
     // ...the red fades out to cyan as the mouse is held over...
@@ -44,7 +44,7 @@ public class IngredientContainer : MonoBehaviour
     // ...and the mesh finally turns white when the mouse moves away.
     void OnMouseExit()
     {
-        rend.color = Color.white;
+       // rend.color = Color.white;
         IsOver = false;
     }
 

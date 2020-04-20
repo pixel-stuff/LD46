@@ -28,7 +28,7 @@ public class Ingredient : MonoBehaviour
         if(IsSelected && Input.GetKeyUp(KeyCode.Mouse0))
         {
             IsSelected = false;
-            rend.color = Color.white;
+           //rend.color = Color.white;
             if (Receptacle != null)
             {
                 this.transform.position = Receptacle.transform.position;
@@ -62,7 +62,7 @@ public class Ingredient : MonoBehaviour
             if (col.gameObject.GetComponent<Receptacle>().LinkedIngredient2D == null)
             {
                 Receptacle = col.gameObject;
-                rend.color = Color.yellow;
+               // rend.color = Color.yellow;
             }
         }
     }
@@ -75,7 +75,7 @@ public class Ingredient : MonoBehaviour
             if (col.gameObject.GetComponent<Receptacle>().LinkedIngredient2D == null)
             {
                 Receptacle = null;
-                rend.color = Color.red;
+               //rend.color = Color.red;
             }
         }
     }
