@@ -27,6 +27,7 @@ public class SimonManager : MonoBehaviour {
   [Header("Event")]
   [SerializeField] MyFloatEvent Completion;
   [SerializeField] UnityEvent SimonSucceed;
+  [SerializeField] UnityEvent SimonFailed;
 
   List<Receptacle> tmpReceptacle;
   List<SimonIngredient> tmpSimonIngredient;
@@ -131,11 +132,13 @@ public class SimonManager : MonoBehaviour {
   public bool CheckPlayerSequence() {
     if(currentSequence.Count != playerSequence.Count) {
       Debug.Log("MATHIAS -> this shouldn't happen");
+      SimonFailed.Invoke();
       return false;
     }
 
     for(var i = 0; i < playerSequence.Count; i++) {
       if(!playerSequence[i].IsIngredientTag(currentSequence[i].simonIngredient.tag)) {
+        SimonFailed.Invoke();
         return false;
       }
     }
