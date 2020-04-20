@@ -6,6 +6,8 @@ using UnityEngine.Events;
 public class Timer : MonoBehaviour {
   [Header("Required")]
   [SerializeField] Transform transform;
+  [SerializeField] bool x;
+  [SerializeField] bool y;
 
   [Header("Event")]
   [SerializeField] UnityEvent TimerStart;
@@ -16,26 +18,34 @@ public class Timer : MonoBehaviour {
 
   public void Awake() {
     loadingStartScale = transform.localScale;
+    transform.gameObject.SetActive(false);
   }
 
   public void StartTimer(float waitForXSec = 10) {
     TimerStart.Invoke();
+    transform.gameObject.SetActive(true);
     timeCoroutStarted = Time.time;
     StartCoroutine(TimerCorout(waitForXSec));
   }
 
   IEnumerator TimerCorout(float waitForXSec) {
-    Vector3 tmp = new Vector3(0.0f, loadingStartScale.y, loadingStartScale.z);
+    Vector3 tmp = loadingStartScale;
     float currentTime;
     do {
       currentTime = Time.time - timeCoroutStarted;
-      tmp.x = loadingStartScale.x * currentTime / waitForXSec;
+      if(x) {
+        tmp.x = loadingStartScale.x - loadingStartScale.x * currentTime / waitForXSec;
+      }
+      if(y) {
+        tmp.y = loadingStartScale.y - loadingStartScale.y * currentTime / waitForXSec;
+      }
       transform.localScale = tmp;
       yield return new WaitForEndOfFrame();
       //Debug.Log("currenttime : " + currentTime + " / " + waitForXSec);
     } while(currentTime <= waitForXSec);
 
-    transform.localScale = loadingStartScale;
+    transform.localScale = Vector3.zero;
+    transform.gameObject.SetActive(false);
     TimerEnd.Invoke();
   }
 

@@ -32,6 +32,7 @@ public class SimonManager : MonoBehaviour {
   [SerializeField] Receptacle[] receptacles;
 
   [Header("Event")]
+  [SerializeField] UnityEvent StartSequence;
   [SerializeField] MyFloatEvent Completion;
   [SerializeField] UnityEvent SimonSucceed;
   [SerializeField] UnityEvent SimonFailed;
@@ -80,10 +81,10 @@ public class SimonManager : MonoBehaviour {
       iteration.receptacle.spriteRenderer.sprite = iteration.simonIngredient.ingredientSprite;
     }
 
-    StartCoroutine(SequenceApparition());
+    StartCoroutine(SequenceCreated());
   }
 
-  IEnumerator SequenceApparition() {
+  IEnumerator SequenceCreated() {
 
     var step = 0.02f;
     var currentColor = new Color(1.0f, 1.0f, 1.0f, 0.0f);
@@ -104,7 +105,8 @@ public class SimonManager : MonoBehaviour {
         yield return new WaitForEndOfFrame();
       } while(currentColor.a > 0.0f);
     }
-    //Debug.Log("End Of Apparition");
+
+    StartSequence.Invoke();
   }
 
   public void ReceptacleReceivedIngredient(Receptacle recep) {
@@ -124,7 +126,6 @@ public class SimonManager : MonoBehaviour {
       completion += 1.0f / currentSequence.Count;
       Completion.Invoke(completion);
     }
-
   }
 
   public void ReceptacleRemovedIngredient(Receptacle recep) {
@@ -144,9 +145,11 @@ public class SimonManager : MonoBehaviour {
     return false;
   }
 
+
+  public void TimerEnd() => CheckPlayerSequence();
+
   public bool CheckPlayerSequence() {
     if(currentSequence.Count != playerSequence.Count) {
-      Debug.Log("MATHIAS -> this shouldn't happen");
       SimonFailed.Invoke();
       return false;
     }
@@ -157,6 +160,7 @@ public class SimonManager : MonoBehaviour {
         return false;
       }
     }
+
     completion = 1.0f;
     Completion.Invoke(completion);
     SimonSucceed.Invoke();
