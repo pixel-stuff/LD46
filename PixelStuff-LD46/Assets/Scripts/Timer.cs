@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class Timer : MonoBehaviour {
   [Header("Required")]
-  [SerializeField] Transform transform;
+  [SerializeField] RectTransform rectTransform;
   [SerializeField] bool x;
   [SerializeField] bool y;
 
@@ -14,19 +14,19 @@ public class Timer : MonoBehaviour {
   [SerializeField] UnityEvent TimerEnd;
 
   float timeCoroutStarted;
-  Vector3 loadingStartScale;
+  Vector2 loadingStartScale;
   IEnumerator corout;
 
   public void Awake() {
-    loadingStartScale = transform.localScale;
-    transform.gameObject.SetActive(false);
+    loadingStartScale = rectTransform.sizeDelta;
+    rectTransform.gameObject.SetActive(false);
   }
 
   public void StartTimer(float waitForXSec = 10) {
     StopTimer(); // just to be sure ! 
 
     TimerStart.Invoke();
-    transform.gameObject.SetActive(true);
+    rectTransform.gameObject.SetActive(true);
     timeCoroutStarted = Time.time;
     corout = TimerCorout(waitForXSec);
     StartCoroutine(corout);
@@ -37,8 +37,8 @@ public class Timer : MonoBehaviour {
       StopCoroutine(corout);
       corout = null;
     }
-    transform.localScale = Vector3.zero;
-    transform.gameObject.SetActive(false);
+    rectTransform.localScale = Vector3.zero;
+    rectTransform.gameObject.SetActive(false);
   }
 
   public void PauseTime() {
@@ -49,7 +49,7 @@ public class Timer : MonoBehaviour {
   }
 
   IEnumerator TimerCorout(float waitForXSec) {
-    Vector3 tmp = loadingStartScale;
+    Vector2 tmp = loadingStartScale;
     float currentTime;
     do {
       currentTime = Time.time - timeCoroutStarted;
@@ -59,13 +59,13 @@ public class Timer : MonoBehaviour {
       if(y) {
         tmp.y = loadingStartScale.y - loadingStartScale.y * currentTime / waitForXSec;
       }
-      transform.localScale = tmp;
+      rectTransform.localScale = tmp;
       yield return new WaitForEndOfFrame();
       //Debug.Log("currenttime : " + currentTime + " / " + waitForXSec);
     } while(currentTime <= waitForXSec);
 
-    transform.localScale = Vector3.zero;
-    transform.gameObject.SetActive(false);
+    rectTransform.localScale = Vector2.zero;
+    rectTransform.gameObject.SetActive(false);
     corout = null;
     TimerEnd.Invoke();
   }
