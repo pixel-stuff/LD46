@@ -18,6 +18,10 @@ public class InvocationManager : MonoBehaviour
     public UnityEvent AnimationOver = new UnityEvent();
     private int currentInvocationIndex = 0;
 
+    public int TryBeforeDeath = 2;
+    public int CollierZOffset = 10;
+    public GameObject DeathGameObject;
+
     public string NextScene = "Menu";
     // Start is called before the first frame update
     void Start()
@@ -33,6 +37,37 @@ public class InvocationManager : MonoBehaviour
     {
         
     }
+
+    public void ConsumeTry()
+    {
+        TryBeforeDeath--;
+        StartCoroutine(Move(3f));
+        
+    }
+
+    public IEnumerator Move(float duration)
+    {
+        Vector3 originalPos = DeathGameObject.transform.position;
+
+        float elapsed = 0.0f;
+
+        while (elapsed < duration)
+        {
+            float newz = Mathf.Lerp(0, CollierZOffset, elapsed / duration);
+
+            DeathGameObject.transform.position = originalPos + new Vector3(0, 0, newz);
+
+            elapsed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        if (TryBeforeDeath == 0)
+        {
+            SceneManager.LoadScene(NextScene, LoadSceneMode.Single);
+        }
+    }
+
 
     void InitInvocation(InvocationConfig inv)
     {
