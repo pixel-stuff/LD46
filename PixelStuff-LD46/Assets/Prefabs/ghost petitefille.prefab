@@ -73,7 +73,7 @@ SpriteMask:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 815b5a9e53062a64d90dee2dfff7f5fb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 45f6645279afdf5439e104b51f9a60e5, type: 3}
   m_MaskAlphaCutoff: 0
   m_FrontSortingLayerID: 0
   m_BackSortingLayerID: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetSprite: {fileID: 9139302008634247136}
   TargetMask: {fileID: 9139302009063448062}
-  MaskFactor: 1
+  MaskFactor: 0
   VisibleFactor: 0
 --- !u!1 &9139302008312294801
 GameObject:
@@ -126,7 +126,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9139302008312294801}
-  m_LocalRotation: {x: 0.0011506799, y: 0.99865395, z: 0.025426041, w: -0.045195043}
+  m_LocalRotation: {x: -0.11028044, y: 0.012534734, z: -0.0013909307, w: -0.9938205}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
