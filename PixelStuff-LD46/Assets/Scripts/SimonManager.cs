@@ -117,9 +117,6 @@ public class SimonManager : MonoBehaviour {
       playerSequence[index].isGoodanswer = true;
     }
 
-
-   
-
     if(currentSequence.Count == playerSequence.Count) {
       CheckPlayerSequence();
     } else if(playerSequence[index].isGoodanswer) {
