@@ -94,10 +94,18 @@ public class SimonManager : MonoBehaviour {
       iteration.receptacle.spriteRenderer.sprite = iteration.simonIngredient.ingredientSprite;
     }
 
-    StartCoroutine(SequenceCreated());
+    StartCoroutine(SequenceApparition());
   }
 
-  IEnumerator SequenceCreated() {
+  public void RedoSameSequence() {
+    foreach(var o in receptacles) {
+      o.spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+      o.DiscardIngredient();
+    }
+    StartCoroutine(SequenceApparition());
+  }
+
+  IEnumerator SequenceApparition() {
     var index = 0;
     for(var i = 0; i < countdown.Count(); i++) {
       countdown[i].SetActive(true);
