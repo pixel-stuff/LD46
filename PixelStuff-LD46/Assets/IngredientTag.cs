@@ -12,12 +12,20 @@ public class IngredientTag : MonoBehaviour
 public enum EIngredientTag
 {
     Flamme,
-    tete,
+    crane,
     os,
     intestin,
     cyboulette,
     carotte,
     oeil,
     toto,
+    poudre,
+    cristal,
+    papillon,
+    cheveux,
+    lezard,
+    eprouvette,
+    fossile, 
+    citron,
     none
 }
