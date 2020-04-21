@@ -46,7 +46,7 @@ public class InvocationManager : MonoBehaviour
     public void ConsumeTry()
     {
         CurrentTryBeforeDeath--;
-        StartCoroutine(Move(3f, 1));
+        StartCoroutine(Move(1.5f, 1));
         
     }
 
@@ -55,7 +55,7 @@ public class InvocationManager : MonoBehaviour
         if (CurrentTryBeforeDeath < TryBeforeDeath)
         {
             CurrentTryBeforeDeath++;
-            StartCoroutine(Move(3f, -1));
+            StartCoroutine(Move(1.5f, -1));
         }
 
     }
