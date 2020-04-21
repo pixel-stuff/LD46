@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1086,22 +1086,22 @@ PrefabInstance:
     - target: {fileID: 4636361848418306861, guid: 8fd7f59b175f44e9aa8d0bae50e26846,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.19583702
+      value: -0.19583704
       objectReference: {fileID: 0}
     - target: {fileID: 4636361848418306861, guid: 8fd7f59b175f44e9aa8d0bae50e26846,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.16042258
+      value: -0.16042256
       objectReference: {fileID: 0}
     - target: {fileID: 4636361848418306861, guid: 8fd7f59b175f44e9aa8d0bae50e26846,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.03249277
+      value: 0.03249278
       objectReference: {fileID: 0}
     - target: {fileID: 4636361848418306861, guid: 8fd7f59b175f44e9aa8d0bae50e26846,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.9668799
+      value: -0.96687984
       objectReference: {fileID: 0}
     - target: {fileID: 4636361848418306861, guid: 8fd7f59b175f44e9aa8d0bae50e26846,
         type: 3}
@@ -3920,22 +3920,22 @@ PrefabInstance:
     - target: {fileID: 4636361848418306861, guid: 103df9b387d414fab83d531766a9bee0,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.17900619
+      value: -0.17900617
       objectReference: {fileID: 0}
     - target: {fileID: 4636361848418306861, guid: 103df9b387d414fab83d531766a9bee0,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.19063944
+      value: -0.19063926
       objectReference: {fileID: 0}
     - target: {fileID: 4636361848418306861, guid: 103df9b387d414fab83d531766a9bee0,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.035379697
+      value: 0.035379723
       objectReference: {fileID: 0}
     - target: {fileID: 4636361848418306861, guid: 103df9b387d414fab83d531766a9bee0,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.9645526
+      value: -0.96455264
       objectReference: {fileID: 0}
     - target: {fileID: 4636361848418306861, guid: 103df9b387d414fab83d531766a9bee0,
         type: 3}
@@ -4340,22 +4340,22 @@ PrefabInstance:
     - target: {fileID: 4636361848418306861, guid: c3c0e344349fe4b809fd5eef36702cd8,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.17741463
+      value: -0.1774147
       objectReference: {fileID: 0}
     - target: {fileID: 4636361848418306861, guid: c3c0e344349fe4b809fd5eef36702cd8,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.1663612
+      value: 0.16636147
       objectReference: {fileID: 0}
     - target: {fileID: 4636361848418306861, guid: c3c0e344349fe4b809fd5eef36702cd8,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.030443646
+      value: -0.030443594
       objectReference: {fileID: 0}
     - target: {fileID: 4636361848418306861, guid: c3c0e344349fe4b809fd5eef36702cd8,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.96949536
+      value: -0.9694953
       objectReference: {fileID: 0}
     - target: {fileID: 4636361848418306861, guid: c3c0e344349fe4b809fd5eef36702cd8,
         type: 3}
@@ -5531,12 +5531,22 @@ PrefabInstance:
     - target: {fileID: 871160936209320782, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 189.96
+      value: 380
       objectReference: {fileID: 0}
     - target: {fileID: 871160936209320782, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 105.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 871160936209320782, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 871160936209320782, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1426655068409546211, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
         type: 3}
@@ -5607,12 +5617,12 @@ PrefabInstance:
     - target: {fileID: 7104842299313776535, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
         type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 38
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 7104842299313776535, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
         type: 3}
       propertyPath: m_FontData.m_LineSpacing
-      value: 1.45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7104842299313776535, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
         type: 3}
@@ -5629,6 +5639,26 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7104842299313776535, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
+        type: 3}
+      propertyPath: m_Text
+      value: Begin the ritual
+      objectReference: {fileID: 0}
+    - target: {fileID: 7104842299313776535, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
+        type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7104842299313776535, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7104842299313776535, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
+        type: 3}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7238253031541969272, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
         type: 3}
       propertyPath: m_FontData.m_Font
@@ -5638,7 +5668,7 @@ PrefabInstance:
     - target: {fileID: 7238253031541969272, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
         type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 47
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7238253031541969272, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
         type: 3}
@@ -5658,7 +5688,7 @@ PrefabInstance:
     - target: {fileID: 7238253031541969272, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
         type: 3}
       propertyPath: m_FontData.m_LineSpacing
-      value: 1.03
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 7238253031541969272, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
         type: 3}
@@ -5674,6 +5704,11 @@ PrefabInstance:
         sequence on the Ouija board in limited time
 
         to summon them.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7238253031541969272, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ed92a6a5d5374ffa9a709a3f0b3d94b, type: 3}
