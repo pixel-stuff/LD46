@@ -135,7 +135,7 @@ public class SimonManager : MonoBehaviour {
     playerSequence.Add(new PlayerIteration() { receptacle = recep, isGoodanswer = false });
 
     var index = playerSequence.Count - 1;
-    if(recep.IsIngredientTag(currentSequence[index].simonIngredient.tag)) {
+    if(recep.IsIngredientTag(currentSequence[index].simonIngredient.tag) && recep == currentSequence[index].receptacle) {
       playerSequence[index].isGoodanswer = true;
     }
 
@@ -183,7 +183,7 @@ public class SimonManager : MonoBehaviour {
     }
 
     for(var i = 0; i < playerSequence.Count; i++) {
-      if(!playerSequence[i].receptacle.IsIngredientTag(currentSequence[i].simonIngredient.tag)) {
+      if(!(playerSequence[i].receptacle.IsIngredientTag(currentSequence[i].simonIngredient.tag) && playerSequence[i].receptacle == currentSequence[i].receptacle)) {
         StartCoroutine(EndAnimation(false));
         return;
       }
