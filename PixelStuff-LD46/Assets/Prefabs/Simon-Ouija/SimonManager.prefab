@@ -188,7 +188,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3023034336646627329}
   m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 1.3200073, y: -1.066, z: 6}
+  m_LocalPosition: {x: 0.45, y: -1.07, z: 6}
   m_LocalScale: {x: 4.1, y: 3.41, z: 1}
   m_Children: []
   m_Father: {fileID: 8594405995410452046}
@@ -5192,7 +5192,7 @@ MonoBehaviour:
   - {fileID: 2673277261593817498}
   - {fileID: 2673277261608140896}
   - {fileID: 2673277259583523391}
-  step: 2
+  step: 15
   countdown:
   - {fileID: 1918490204247696259}
   - {fileID: 3477301419360436044}
@@ -5318,8 +5318,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3092740992759829288}
-        m_MethodName: CreateSequence
-        m_Mode: 3
+        m_MethodName: RedoSameSequence
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5387,7 +5387,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8054000181709998490}
   m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 1.3200073, y: -1.066, z: 6}
+  m_LocalPosition: {x: 0.45, y: -1.07, z: 6}
   m_LocalScale: {x: 4.1, y: 3.41, z: 1}
   m_Children: []
   m_Father: {fileID: 8594405995410452046}

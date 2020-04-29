@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Tuto.unity
     guid: 1d783f6d6263a44df9736c8d2754e72f
   - enabled: 1
-    path: Assets/Scenes/IntegrationScene.unity
+    path: Assets/Scenes/MainScene.unity
     guid: c969583b5a1f5ef46b484e9898be43dd
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
