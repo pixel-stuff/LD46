@@ -82,8 +82,6 @@ public class InvocationManager : MonoBehaviour {
     RefCurve.Amplitude = inv.Amplitude;
 
     lastGhostInvoked = GameObject.Instantiate(Invocations[currentInvocationIndex].prefab, transform);
-    lastGhostInvoked.transform.localPosition = Vector3.zero;
-    lastGhostInvoked.transform.localScale = Vector3.one * 0.8f;
     InvocationGameObjects.Add(lastGhostInvoked);
     //resetMask
     lastGhostInvoked.GetComponentInChildren<MaskSlideComponent>().VisibleFactor = 0f;
