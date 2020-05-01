@@ -17,10 +17,10 @@ public class Ghost : MonoBehaviour {
 
   }
 
-  public void GoTo() {
+  public void GoodGoTo() {
     switch(type) {
       case GhostType.petitefille:
-        //Start anim GoTo1
+        animator.Play("GoodGoToA");
         break;
     }
   }

@@ -4,29 +4,21 @@ using UnityEngine;
 
 
 [ExecuteInEditMode]
-public class MaskSlideComponent : MonoBehaviour
-{
+public class MaskSlideComponent : MonoBehaviour {
 
-    public SpriteRenderer TargetSprite;
-    public SpriteRenderer TargetMask;
-    public float MaskFactor = 0.5f;
+  public SpriteRenderer TargetSprite;
+  public SpriteRenderer TargetMask;
+  public float MaskFactor = 0.5f;
+  public float VisibleFactor = 0.0f;
 
-    public float VisibleFactor = 0.0f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
+  // Update is called once per frame
+  void Update() {
+    if(TargetSprite) {
+      this.transform.localPosition = new Vector3(0, -VisibleFactor * 2 * this.GetComponent<SpriteMask>().bounds.size.y, 0);
+      TargetSprite.transform.localPosition = new Vector3(0, VisibleFactor * 2 * this.GetComponent<SpriteMask>().bounds.size.y, 0);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (TargetSprite)
-        {
-            this.transform.localPosition = new Vector3(0, -VisibleFactor * this.GetComponent<SpriteMask>().bounds.size.y, 0);
-            TargetSprite.transform.localPosition = new Vector3(0, VisibleFactor * this.GetComponent<SpriteMask>().bounds.size.y, 0);
-        }
-        if (TargetMask)
-            TargetMask.transform.localPosition = new Vector3(0, VisibleFactor * TargetMask.bounds.size.y*2 * MaskFactor, 0);
+    if(TargetMask) {
+      TargetMask.transform.localPosition = new Vector3(0, VisibleFactor * TargetMask.bounds.size.y * 2 * MaskFactor, 0);
     }
+  }
 }

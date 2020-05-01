@@ -9,13 +9,11 @@ public class MyIntEvent : UnityEvent<int> { }
 public class InvocationManager : MonoBehaviour {
   public List<InvocationConfig> Invocations = new List<InvocationConfig>();
 
-  public AnimationClip[] MoveAnimation;
-
   public List<GameObject> InvocationGameObjects = new List<GameObject>();
 
   public SinusLine RefCurve;
   public MyIntEvent InitInvocationEvent = new MyIntEvent();
-  public UnityEvent InvocationStarted = new UnityEvent();
+  public MyIntEvent NextSequence = new MyIntEvent();
   public UnityEvent AnimationOver = new UnityEvent();
   private int currentInvocationIndex = 0;
 
@@ -26,24 +24,18 @@ public class InvocationManager : MonoBehaviour {
 
   private GameObject lastGhostInvoked;
 
-  public string NextScene = "Menu";
+  public string GameOverScene = "GameOver";
   // Start is called before the first frame update
   void Start() {
     CurrentTryBeforeDeath = TryBeforeDeath;
     if(Invocations.Count > 0) {
-      InitInvocation(Invocations[currentInvocationIndex]);
+      GhostAppear(Invocations[currentInvocationIndex]);
     }
-  }
-
-  // Update is called once per frame
-  void Update() {
-
   }
 
   public void ConsumeTry() {
     CurrentTryBeforeDeath--;
     StartCoroutine(Move(1.5f, 1));
-
   }
 
   public void RestaureTry() {
@@ -51,7 +43,6 @@ public class InvocationManager : MonoBehaviour {
       CurrentTryBeforeDeath++;
       StartCoroutine(Move(1.5f, -1));
     }
-
   }
 
   public IEnumerator Move(float duration, int signe) {
@@ -70,12 +61,11 @@ public class InvocationManager : MonoBehaviour {
     }
 
     if(CurrentTryBeforeDeath <= 0) {
-      SceneManager.LoadScene(NextScene, LoadSceneMode.Single);
+      SceneManager.LoadScene(GameOverScene, LoadSceneMode.Single);
     }
   }
 
-
-  void InitInvocation(InvocationConfig inv) {
+  void GhostAppear(InvocationConfig inv) {
     //init Curve
     RefCurve.Frequence = inv.Frequence;
     RefCurve.Dephasage = inv.Dephasage;
@@ -89,33 +79,36 @@ public class InvocationManager : MonoBehaviour {
     InitInvocationEvent.Invoke(2 + currentInvocationIndex);
   }
 
-  public void InvocationStart() {
-    InvocationStarted.Invoke();
-    GameObject invoke = InvocationGameObjects[InvocationGameObjects.Count - 1];
-    invoke.GetComponent<Animation>().AddClip(MoveAnimation[currentInvocationIndex], MoveAnimation[currentInvocationIndex].name);
-    invoke.GetComponent<Animation>().Play(MoveAnimation[currentInvocationIndex].name);
+  public void GoodGoTo() {
+    currentInvocationIndex++;
+    StartCoroutine(CoroutGoodGoTo());
   }
+
+  IEnumerator CoroutGoodGoTo() {
+    yield return new WaitForSeconds(2.0f);
+    GameObject invoke = InvocationGameObjects[InvocationGameObjects.Count - 1];
+    invoke.GetComponent<Ghost>().GoodGoTo();
+
+    yield return new WaitForSeconds(2.0f);
+    NextSequence.Invoke(2 + currentInvocationIndex);
+  }
+
+
 
   public void InvokeNext() {
     currentInvocationIndex++;
     if(currentInvocationIndex == Invocations.Count) {
       //GotoNext Level
-      SceneManager.LoadScene(NextScene, LoadSceneMode.Single);
+      SceneManager.LoadScene(GameOverScene, LoadSceneMode.Single);
       return;
     }
 
-    InitInvocation(Invocations[currentInvocationIndex]);
+    GhostAppear(Invocations[currentInvocationIndex]);
 
   }
 
   public void UpdateVisibleFactor(float factor) {
     InvocationGameObjects[InvocationGameObjects.Count - 1].GetComponentInChildren<MaskSlideComponent>().VisibleFactor = factor;
-  }
-
-
-  public void SetFinalState() {
-    lastGhostInvoked.transform.localScale = Invocations[currentInvocationIndex].scaleFinal;
-    lastGhostInvoked.transform.localPosition = Invocations[currentInvocationIndex].posFinal;
   }
 }
 
@@ -127,7 +120,4 @@ public class InvocationConfig {
   public float Amplitude = 1.0f;
 
   public GameObject prefab;
-
-  public Vector3 posFinal = new Vector3(-4.04f, -0.11f, -9.87f);
-  public Vector3 scaleFinal = new Vector3(0.7f, 0.7f, 1.0f);
 }
