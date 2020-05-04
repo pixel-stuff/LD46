@@ -42,7 +42,7 @@ public class SimonManager : MonoBehaviour {
 
 
   [Header("Event")]
-  [SerializeField] UnityEvent StartSequence;
+  [SerializeField] UnityEvent SequenceAppeared;
   [SerializeField] UnityEvent ComputeSequence;
   [SerializeField] MyFloatEvent Completion;
   [SerializeField] UnityEvent StartEndAnimation;
@@ -98,7 +98,7 @@ public class SimonManager : MonoBehaviour {
   }
 
   public void RedoSameSequence() {
-        CreateSequence(playerSequence.Count);
+    CreateSequence(playerSequence.Count);
   }
 
   IEnumerator SequenceApparition() {
@@ -128,7 +128,7 @@ public class SimonManager : MonoBehaviour {
       } while(currentColor.a > 0.0f);
     }
 
-    StartSequence.Invoke();
+    SequenceAppeared.Invoke();
   }
 
   public void ReceptacleReceivedIngredient(Receptacle recep) {
@@ -149,7 +149,7 @@ public class SimonManager : MonoBehaviour {
     }
 
     if(currentSequence.Count == playerSequence.Count) {
-      CheckPlayerSequence();
+      StartCoroutine(WaitBeforeCheckPlayerSequence());
     }
   }
 
@@ -170,8 +170,13 @@ public class SimonManager : MonoBehaviour {
     return false;
   }
 
-
   public void TimerEnd() => CheckPlayerSequence();
+
+  IEnumerator WaitBeforeCheckPlayerSequence() {
+    yield return new WaitForSeconds(1.0f);
+
+    CheckPlayerSequence();
+  }
 
   public void CheckPlayerSequence() {
 
