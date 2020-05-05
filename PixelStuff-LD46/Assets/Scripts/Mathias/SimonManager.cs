@@ -43,7 +43,7 @@ public class SimonManager : MonoBehaviour {
 
   [Header("Event")]
   [SerializeField] UnityEvent SequenceAppeared;
-  [SerializeField] UnityEvent ComputeSequence;
+  [SerializeField] UnityEvent StartCreateNewSequence;
   [SerializeField] MyFloatEvent Completion;
   [SerializeField] UnityEvent StartEndAnimation;
   [SerializeField] UnityEvent SimonSucceed;
@@ -71,7 +71,7 @@ public class SimonManager : MonoBehaviour {
     tmpSimonIngredient = new List<SimonIngredient>(simonIngredients);
     tmpReceptacle = new List<Receptacle>(receptacles);
     completion = 0.0f;
-    ComputeSequence.Invoke();
+    StartCreateNewSequence.Invoke();
     currentSequence.Clear();
     playerSequence.Clear();
     foreach(var o in receptacles) {

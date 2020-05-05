@@ -48,6 +48,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 4507294053296327556}
   type: 0
+  mask: {fileID: 0}
+  renderer: {fileID: 4801165154164811228}
+  goodGhost: {fileID: 21300000, guid: 5001af4d8e551496b882d108f7a1cc9f, type: 3}
+  badGhost: {fileID: 21300000, guid: aec44ed842c354caa8efe83fc1aae9a9, type: 3}
 --- !u!114 &2652259871715297816
 MonoBehaviour:
   m_ObjectHideFlags: 0

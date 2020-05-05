@@ -9,7 +9,7 @@ public class MyIntEvent : UnityEvent<int> { }
 public class InvocationManager : MonoBehaviour {
   public List<InvocationConfig> Invocations = new List<InvocationConfig>();
 
-  public List<GameObject> InvocationGameObjects = new List<GameObject>();
+  public List<Ghost> ghostInvocated;
 
   public SinusLine RefCurve;
   public MyIntEvent GhostInvocated;
@@ -72,7 +72,7 @@ public class InvocationManager : MonoBehaviour {
     RefCurve.Amplitude = inv.Amplitude;
 
     lastGhostInvoked = GameObject.Instantiate(Invocations[currentInvocationIndex].prefab, transform);
-    InvocationGameObjects.Add(lastGhostInvoked);
+    ghostInvocated.Add(lastGhostInvoked.GetComponent<Ghost>());
     //resetMask
     lastGhostInvoked.GetComponentInChildren<MaskSlideComponent>().VisibleFactor = 0f;
 
@@ -86,8 +86,8 @@ public class InvocationManager : MonoBehaviour {
 
   IEnumerator CoroutGoodGoTo() {
     yield return new WaitForSeconds(2.0f);
-    GameObject invoke = InvocationGameObjects[InvocationGameObjects.Count - 1];
-    invoke.GetComponent<Ghost>().GoodGoTo();
+    var invoke = ghostInvocated[ghostInvocated.Count - 1];
+    invoke.GoodGoTo();
 
     yield return new WaitForSeconds(2.0f);
     //NextSequence.Invoke(2 + currentInvocationIndex);
@@ -110,9 +110,8 @@ public class InvocationManager : MonoBehaviour {
     GhostAppear(Invocations[currentInvocationIndex]);
   }
 
-  public void UpdateVisibleFactor(float factor) {
-    InvocationGameObjects[InvocationGameObjects.Count - 1].GetComponentInChildren<MaskSlideComponent>().VisibleFactor = factor;
-  }
+  public void UpdateVisibleFactor(float factor) => ghostInvocated[ghostInvocated.Count - 1].UpdateVisibleFactor(factor);
+
 }
 
 [System.Serializable]
