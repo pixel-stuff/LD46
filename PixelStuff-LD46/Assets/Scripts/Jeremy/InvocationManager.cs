@@ -13,8 +13,9 @@ public class InvocationManager : MonoBehaviour {
   public SinusLine RefCurve;
 
   public MyIntEvent GhostInvocated;
+  public UnityEvent FlickerEnd;
+  public UnityEvent GoodToGoEnd;
   public UnityEvent GameWin;
-  public UnityEvent AnimationOver;
 
   private int currentInvocationIndex = 0;
   public int TryBeforeDeath = 2;
@@ -68,11 +69,11 @@ public class InvocationManager : MonoBehaviour {
 
   void EndFlicker() {
     HideFilter();
-
+    FlickerEnd.Invoke();
   }
 
   void EndGoodGoTo() {
-
+    GoodToGoEnd.Invoke();
   }
 
   void HideFilter() {
@@ -90,7 +91,7 @@ public class InvocationManager : MonoBehaviour {
     lastGhostInvoked = GameObject.Instantiate(Invocations[currentInvocationIndex].prefab, transform);
     ghostInvocated.Add(lastGhostInvoked.GetComponent<Ghost>());
     ghostInvocated[ghostInvocated.Count - 1].FlickerEnd.AddListener(EndFlicker);
-    ghostInvocated[ghostInvocated.Count - 1].FlickerEnd.AddListener(EndGoodGoTo);
+    ghostInvocated[ghostInvocated.Count - 1].GoodGoToEnd.AddListener(EndGoodGoTo);
     //resetMask
     lastGhostInvoked.GetComponentInChildren<MaskSlideComponent>().VisibleFactor = 0f;
 

@@ -48,11 +48,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 4507294053296327556}
   type: 1
-  mask: {fileID: 0}
-  renderer1: {fileID: 0}
-  renderer2: {fileID: 0}
-  goodGhost: {fileID: 0}
-  badGhost: {fileID: 0}
+  mask: {fileID: 1250059891759688589}
+  renderer1: {fileID: 4801165154164811228}
+  renderer2: {fileID: 1160937390299749482}
+  goodGhost: {fileID: 21300000, guid: 7204581527d534b65b39159292acf062, type: 3}
+  badGhost: {fileID: 21300000, guid: 078cab175a9fb46ef94121f294c17622, type: 3}
+  GoodGoToEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  FlickerEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2652259871715297816
 MonoBehaviour:
   m_ObjectHideFlags: 0

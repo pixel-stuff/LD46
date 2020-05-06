@@ -183,7 +183,6 @@ public class SimonManager : MonoBehaviour {
   }
 
   public void CheckPlayerSequence() {
-
     StartEndAnimation.Invoke();
     RemoveIngredientFromBoard();
 
@@ -193,12 +192,11 @@ public class SimonManager : MonoBehaviour {
     }
 
     for(var i = 0; i < playerSequence.Count; i++) {
-      if(!(playerSequence[i].receptacle.IsIngredientTag(currentSequence[i].simonIngredient.tag) && playerSequence[i].receptacle == currentSequence[i].receptacle)) {
+      if(!playerSequence[i].isGoodanswer) {
         StartCoroutine(EndAnimation(false));
         return;
       }
     }
-
     StartCoroutine(EndAnimation(true));
   }
 

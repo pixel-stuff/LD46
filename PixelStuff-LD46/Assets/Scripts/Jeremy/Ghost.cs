@@ -22,7 +22,7 @@ public class Ghost : MonoBehaviour {
   [SerializeField] Sprite badGhost;
 
   [Header("Event")]
-  [SerializeField] public UnityEvent GoogGoToEnd;
+  [SerializeField] public UnityEvent GoodGoToEnd;
   [SerializeField] public UnityEvent FlickerEnd;
 
   public void GoodGoTo() {
@@ -34,7 +34,12 @@ public class Ghost : MonoBehaviour {
         animator.Play("GoodGoToB");
         break;
     }
-    GoogGoToEnd.Invoke();
+    StartCoroutine(WaitBeforeGoodToGo());
+  }
+
+  IEnumerator WaitBeforeGoodToGo() {
+    yield return new WaitForSeconds(1.0f);
+    GoodGoToEnd.Invoke();
   }
 
   public void UpdateVisibleFactor(float factor) => mask.VisibleFactor = factor;
@@ -47,10 +52,10 @@ public class Ghost : MonoBehaviour {
     for(var i = 0; i < 4; i++) {
       renderer1.sprite = badGhost;
       renderer2.sprite = badGhost;
-      yield return new WaitForSeconds(UnityEngine.Random.value/2);
+      yield return new WaitForSeconds(UnityEngine.Random.value / 2);
       renderer1.sprite = goodGhost;
       renderer2.sprite = goodGhost;
-      yield return new WaitForSeconds(UnityEngine.Random.value/2);
+      yield return new WaitForSeconds(UnityEngine.Random.value / 2);
     }
     mask.VisibleFactor = 0.0f;
     FlickerEnd.Invoke();
