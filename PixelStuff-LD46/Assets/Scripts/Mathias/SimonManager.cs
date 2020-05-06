@@ -74,11 +74,7 @@ public class SimonManager : MonoBehaviour {
     StartCreateNewSequence.Invoke();
     currentSequence.Clear();
     playerSequence.Clear();
-    foreach(var o in receptacles) {
-      o.spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
-      o.DiscardIngredient();
-    }
-    ingredientReceived = 0;
+    RemoveIngredientFromBoard();
 
     for(var i = 0; i < numberOfItemToPick; i++) {
       var randSprite = UnityEngine.Random.Range(0, tmpSimonIngredient.Count);
@@ -99,6 +95,14 @@ public class SimonManager : MonoBehaviour {
 
   public void RedoSameSequence() {
     CreateSequence(playerSequence.Count);
+  }
+
+  void RemoveIngredientFromBoard() {
+    foreach(var o in receptacles) {
+      o.spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+      o.DiscardIngredient();
+    }
+    ingredientReceived = 0;
   }
 
   IEnumerator SequenceApparition() {
@@ -181,6 +185,7 @@ public class SimonManager : MonoBehaviour {
   public void CheckPlayerSequence() {
 
     StartEndAnimation.Invoke();
+    RemoveIngredientFromBoard();
 
     if(currentSequence.Count != playerSequence.Count) {
       StartCoroutine(EndAnimation(false));

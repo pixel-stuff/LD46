@@ -7,16 +7,16 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class MyIntEvent : UnityEvent<int> { }
 public class InvocationManager : MonoBehaviour {
+
   public List<InvocationConfig> Invocations = new List<InvocationConfig>();
-
   public List<Ghost> ghostInvocated;
-
   public SinusLine RefCurve;
-  public MyIntEvent GhostInvocated;
-  public UnityEvent GameWin = new UnityEvent();
-  public UnityEvent AnimationOver = new UnityEvent();
-  private int currentInvocationIndex = 0;
 
+  public MyIntEvent GhostInvocated;
+  public UnityEvent GameWin;
+  public UnityEvent AnimationOver;
+
+  private int currentInvocationIndex = 0;
   public int TryBeforeDeath = 2;
   int CurrentTryBeforeDeath = 2;
   public int CollierZOffset = 10;
@@ -35,20 +35,21 @@ public class InvocationManager : MonoBehaviour {
 
   public void ConsumeTry() {
     CurrentTryBeforeDeath--;
-    StartCoroutine(Move(1.5f, 1));
+    StartCoroutine(FlickerGhost(0.2f, 1));
   }
 
   public void RestaureTry() {
     if(CurrentTryBeforeDeath < TryBeforeDeath) {
       CurrentTryBeforeDeath++;
-      StartCoroutine(Move(1.5f, -1));
+      //StartCoroutine(FailedAnimation(1.5f, -1));
     }
   }
 
-  public IEnumerator Move(float duration, int signe) {
+  public IEnumerator FlickerGhost(float duration, int signe) {
     Vector3 originalPos = DeathGameObject.transform.position;
 
     float elapsed = 0.0f;
+    ghostInvocated[ghostInvocated.Count - 1].MakeBadGhostFlicker();
 
     while(elapsed < duration) {
       float newz = Mathf.Lerp(0, CollierZOffset, elapsed / duration);
@@ -57,12 +58,27 @@ public class InvocationManager : MonoBehaviour {
 
       elapsed += Time.deltaTime;
 
-      yield return null;
+      yield return new WaitForEndOfFrame();
     }
 
     if(CurrentTryBeforeDeath <= 0) {
       SceneManager.LoadScene(GameOverScene, LoadSceneMode.Single);
     }
+  }
+
+  void EndFlicker() {
+    HideFilter();
+
+  }
+
+  void EndGoodGoTo() {
+
+  }
+
+  void HideFilter() {
+    Vector3 tmpPos = DeathGameObject.transform.position;
+    tmpPos.z -= CollierZOffset;
+    DeathGameObject.transform.position = tmpPos;
   }
 
   void GhostAppear(InvocationConfig inv) {
@@ -73,6 +89,8 @@ public class InvocationManager : MonoBehaviour {
 
     lastGhostInvoked = GameObject.Instantiate(Invocations[currentInvocationIndex].prefab, transform);
     ghostInvocated.Add(lastGhostInvoked.GetComponent<Ghost>());
+    ghostInvocated[ghostInvocated.Count - 1].FlickerEnd.AddListener(EndFlicker);
+    ghostInvocated[ghostInvocated.Count - 1].FlickerEnd.AddListener(EndGoodGoTo);
     //resetMask
     lastGhostInvoked.GetComponentInChildren<MaskSlideComponent>().VisibleFactor = 0f;
 

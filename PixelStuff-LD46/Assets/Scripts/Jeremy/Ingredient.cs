@@ -58,7 +58,7 @@ public class Ingredient : MonoBehaviour
     {
         if (col.gameObject.tag == "Receptacle")
         {
-            Debug.Log("CollideWithReceptacle");
+            //Debug.Log("CollideWithReceptacle");
             if (col.gameObject.GetComponent<Receptacle>().LinkedIngredient2D == null)
             {
                 Receptacle = col.gameObject;
@@ -71,7 +71,7 @@ public class Ingredient : MonoBehaviour
     {
         if (col.gameObject.tag == "Receptacle")
         {
-            Debug.Log("ENDCollideWithReceptacle");
+            //Debug.Log("ENDCollideWithReceptacle");
             if (col.gameObject.GetComponent<Receptacle>().LinkedIngredient2D == null)
             {
                 Receptacle = null;

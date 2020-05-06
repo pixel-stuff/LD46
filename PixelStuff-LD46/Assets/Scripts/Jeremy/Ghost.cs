@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum GhostType {
   PetiteFille,
@@ -15,13 +16,14 @@ public class Ghost : MonoBehaviour {
   [SerializeField] MaskSlideComponent mask;
 
   [Header("Sprite")]
-  [SerializeField] SpriteRenderer renderer;
+  [SerializeField] SpriteRenderer renderer1;
+  [SerializeField] SpriteRenderer renderer2;
   [SerializeField] Sprite goodGhost;
   [SerializeField] Sprite badGhost;
 
-  public void AnimationOver() {
-    FindObjectOfType<InvocationManager>().AnimationOver.Invoke();
-  }
+  [Header("Event")]
+  [SerializeField] public UnityEvent GoogGoToEnd;
+  [SerializeField] public UnityEvent FlickerEnd;
 
   public void GoodGoTo() {
     switch(type) {
@@ -32,6 +34,7 @@ public class Ghost : MonoBehaviour {
         animator.Play("GoodGoToB");
         break;
     }
+    GoogGoToEnd.Invoke();
   }
 
   public void UpdateVisibleFactor(float factor) => mask.VisibleFactor = factor;
@@ -39,13 +42,18 @@ public class Ghost : MonoBehaviour {
   public void MakeBadGhostFlicker() => StartCoroutine(Flicker());
 
   IEnumerator Flicker() {
+    yield return new WaitForSeconds(0.2f);
     mask.VisibleFactor = 1.0f;
-    for(var i = 0; i < 3; i++) {
-      renderer.sprite = badGhost;
-      yield return new WaitForSeconds(Random.value);
-      renderer.sprite = goodGhost;
-      yield return new WaitForSeconds(Random.value);
+    for(var i = 0; i < 4; i++) {
+      renderer1.sprite = badGhost;
+      renderer2.sprite = badGhost;
+      yield return new WaitForSeconds(UnityEngine.Random.value/2);
+      renderer1.sprite = goodGhost;
+      renderer2.sprite = goodGhost;
+      yield return new WaitForSeconds(UnityEngine.Random.value/2);
     }
+    mask.VisibleFactor = 0.0f;
+    FlickerEnd.Invoke();
   }
 
   public void InvoqueBadGhost() {

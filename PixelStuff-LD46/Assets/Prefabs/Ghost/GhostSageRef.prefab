@@ -48,6 +48,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 4507294053296327556}
   type: 1
+  mask: {fileID: 0}
+  renderer1: {fileID: 0}
+  renderer2: {fileID: 0}
+  goodGhost: {fileID: 0}
+  badGhost: {fileID: 0}
 --- !u!114 &2652259871715297816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +213,7 @@ GameObject:
   - component: {fileID: 2507642535591849724}
   - component: {fileID: 1160937390299749482}
   m_Layer: 9
-  m_Name: GameObject
+  m_Name: Sprite2 (because why not)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19404,7 +19409,7 @@ GameObject:
   - component: {fileID: 4801165154164811203}
   - component: {fileID: 4801165154164811228}
   m_Layer: 9
-  m_Name: Sprite
+  m_Name: Sprite1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
