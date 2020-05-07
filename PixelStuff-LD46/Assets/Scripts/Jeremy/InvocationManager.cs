@@ -8,8 +8,13 @@ using UnityEngine.SceneManagement;
 public class MyIntEvent : UnityEvent<int> { }
 public class InvocationManager : MonoBehaviour {
 
+  [Header("Simon controller")]
+  [SerializeField] int numberIngredientStart = 1;
+  [SerializeField] int numberIngredientStep = 1;
+
+  [Header("Ghosts controller")]
   public List<InvocationConfig> Invocations = new List<InvocationConfig>();
-  public List<Ghost> ghostInvocated;
+  [SerializeField] List<Ghost> ghosts;
   public SinusLine RefCurve;
 
   public MyIntEvent GhostInvocated;
@@ -17,7 +22,7 @@ public class InvocationManager : MonoBehaviour {
   public UnityEvent GoodToGoEnd;
   public UnityEvent GameWin;
 
-  private int currentInvocationIndex = 0;
+  private int currentInvocationIndex = -1;
   public int TryBeforeDeath = 2;
   int CurrentTryBeforeDeath = 2;
   public int CollierZOffset = 10;
@@ -30,7 +35,7 @@ public class InvocationManager : MonoBehaviour {
   void Start() {
     CurrentTryBeforeDeath = TryBeforeDeath;
     if(Invocations.Count > 0) {
-      GhostAppear(Invocations[currentInvocationIndex]);
+      InvokeNext();
     }
   }
 
@@ -50,7 +55,7 @@ public class InvocationManager : MonoBehaviour {
     Vector3 originalPos = DeathGameObject.transform.position;
 
     float elapsed = 0.0f;
-    ghostInvocated[ghostInvocated.Count - 1].MakeBadGhostFlicker();
+    ghosts[ghosts.Count - 1].MakeBadGhostFlicker();
 
     while(elapsed < duration) {
       float newz = Mathf.Lerp(0, CollierZOffset, elapsed / duration);
@@ -73,7 +78,11 @@ public class InvocationManager : MonoBehaviour {
   }
 
   void EndGoodGoTo() {
-    GoodToGoEnd.Invoke();
+    if(currentInvocationIndex < Invocations.Count) {
+      GoodToGoEnd.Invoke();
+    } else {
+      GameWin.Invoke();
+    }
   }
 
   void HideFilter() {
@@ -89,47 +98,31 @@ public class InvocationManager : MonoBehaviour {
     RefCurve.Amplitude = inv.Amplitude;
 
     lastGhostInvoked = GameObject.Instantiate(Invocations[currentInvocationIndex].prefab, transform);
-    ghostInvocated.Add(lastGhostInvoked.GetComponent<Ghost>());
-    ghostInvocated[ghostInvocated.Count - 1].FlickerEnd.AddListener(EndFlicker);
-    ghostInvocated[ghostInvocated.Count - 1].GoodGoToEnd.AddListener(EndGoodGoTo);
+    ghosts.Add(lastGhostInvoked.GetComponent<Ghost>());
+    ghosts[ghosts.Count - 1].FlickerEnd.AddListener(EndFlicker);
+    ghosts[ghosts.Count - 1].GoodGoToEnd.AddListener(EndGoodGoTo);
     //resetMask
     lastGhostInvoked.GetComponentInChildren<MaskSlideComponent>().VisibleFactor = 0f;
 
-    GhostInvocated.Invoke(2 + currentInvocationIndex);
+    GhostInvocated.Invoke(numberIngredientStart + Mathf.Max(0,(currentInvocationIndex-1))*numberIngredientStep);
   }
 
   public void GoodGoTo() {
-    currentInvocationIndex++;
     StartCoroutine(CoroutGoodGoTo());
   }
 
   IEnumerator CoroutGoodGoTo() {
     yield return new WaitForSeconds(2.0f);
-    var invoke = ghostInvocated[ghostInvocated.Count - 1];
+    var invoke = ghosts[ghosts.Count - 1];
     invoke.GoodGoTo();
-
-    yield return new WaitForSeconds(2.0f);
-    //NextSequence.Invoke(2 + currentInvocationIndex);
-    if(currentInvocationIndex < Invocations.Count) {
-      GhostAppear(Invocations[currentInvocationIndex]);
-      GhostInvocated.Invoke(2 + currentInvocationIndex);
-    } else {
-      GameWin.Invoke();
-    }
   }
 
   public void InvokeNext() {
     currentInvocationIndex++;
-    if(currentInvocationIndex == Invocations.Count) {
-      //GotoNext Level
-      SceneManager.LoadScene(GameOverScene, LoadSceneMode.Single);
-      return;
-    }
-
     GhostAppear(Invocations[currentInvocationIndex]);
   }
 
-  public void UpdateVisibleFactor(float factor) => ghostInvocated[ghostInvocated.Count - 1].UpdateVisibleFactor(factor);
+  public void UpdateVisibleFactor(float factor) => ghosts[ghosts.Count - 1].UpdateVisibleFactor(factor);
 
 }
 

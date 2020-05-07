@@ -6,7 +6,8 @@ using UnityEngine.Events;
 public enum GhostType {
   PetiteFille,
   Sage,
-  autre
+  Femme,
+  Autre
 }
 
 public class Ghost : MonoBehaviour {
@@ -32,6 +33,9 @@ public class Ghost : MonoBehaviour {
         break;
       case GhostType.Sage:
         animator.Play("GoodGoToB");
+        break;
+      case GhostType.Femme:
+        animator.Play("GoodGoToC");
         break;
     }
     StartCoroutine(WaitBeforeGoodToGo());
