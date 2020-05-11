@@ -7,6 +7,7 @@ public enum GhostType {
   PetiteFille,
   Sage,
   Femme,
+  Samourai,
   Autre
 }
 
@@ -27,17 +28,19 @@ public class Ghost : MonoBehaviour {
   [SerializeField] public UnityEvent FlickerEnd;
 
   public void GoodGoTo() {
-    switch(type) {
-      case GhostType.PetiteFille:
-        animator.Play("GoodGoToA");
-        break;
-      case GhostType.Sage:
-        animator.Play("GoodGoToB");
-        break;
-      case GhostType.Femme:
-        animator.Play("GoodGoToC");
-        break;
-    }
+    //switch(type) {
+    //  case GhostType.PetiteFille:
+    //    animator.Play("GoodGoToPetiteFille");
+    //    break;
+    //  case GhostType.Sage:
+    //    animator.Play("GoodGoToSage");
+    //    break;
+    //  case GhostType.Femme:
+    //    animator.Play("GoodGoToFemme");
+    //    break;
+    //}
+    Debug.Log("Math - " + "GoodGoTo" + type.ToString());
+    animator.Play("GoodGoTo" + type.ToString());
     StartCoroutine(WaitBeforeGoodToGo());
   }
 

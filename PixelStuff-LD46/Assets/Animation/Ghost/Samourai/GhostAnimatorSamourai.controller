@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GoodIdleC
+  m_Name: GoodIdleSamourai
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -20,7 +20,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: c6a50ef6256044437a1847ce995c3d75, type: 2}
+  m_Motion: {fileID: 7400000, guid: 131287e3d22fb491eb0f14b9d0599e6c, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -54,7 +54,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GhostAnimatorC
+  m_Name: GhostAnimatorSamourai
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -103,7 +103,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GoodGoToC
+  m_Name: GoodGoToSamourai
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -117,7 +117,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: a40f13f020aa8489fab5abf1fd89cfe4, type: 2}
+  m_Motion: {fileID: 7400000, guid: 568dbc713b1b840acb31c194a480277f, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -140,7 +140,7 @@ AnimatorStateMachine:
     m_Position: {x: 410, y: 0, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8621327941371176773}
-    m_Position: {x: 660, y: 60, z: 0}
+    m_Position: {x: 657.06274, y: 59.95037, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

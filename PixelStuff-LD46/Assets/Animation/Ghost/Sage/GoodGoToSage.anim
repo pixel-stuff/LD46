@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GoodGoToB
+  m_Name: GoodGoToSage
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -39,15 +39,15 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.5
         value: {x: 7.06, y: -0.56, z: -14.5}
-        inSlope: {x: 0, y: -1.451613, z: 0}
-        outSlope: {x: 0, y: -1.451613, z: 0}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 1
-        value: {x: 4.76, y: -0.75, z: -9.87}
+        value: {x: 3.74, y: -0.22, z: -6.85}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -1197,7 +1197,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 4.76
+        value: 3.74
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -1235,15 +1235,15 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.5
         value: -0.56
-        inSlope: -1.451613
-        outSlope: -1.451613
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: -0.75
+        value: -0.22
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -1289,7 +1289,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: -9.87
+        value: -6.85
         inSlope: 0
         outSlope: 0
         tangentMode: 136
