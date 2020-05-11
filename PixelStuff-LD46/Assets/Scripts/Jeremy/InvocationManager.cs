@@ -31,6 +31,7 @@ public class InvocationManager : MonoBehaviour {
   private GameObject lastGhostInvoked;
 
   public string GameOverScene = "GameOver";
+  public string WinScene = "Win";
   // Start is called before the first frame update
   void Start() {
     CurrentTryBeforeDeath = TryBeforeDeath;
@@ -83,6 +84,10 @@ public class InvocationManager : MonoBehaviour {
     } else {
       GameWin.Invoke();
     }
+  }
+
+  public void GoToWinScene() {
+    SceneManager.LoadScene(WinScene);
   }
 
   void HideFilter() {
