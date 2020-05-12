@@ -34,6 +34,9 @@ public class SimonManager : MonoBehaviour {
   [Header("Control")]
   [SerializeField] float step = 4f;
 
+  [Header("Control")]
+  [SerializeField] List<Iteration> currentSequence;
+
   [Header("Animation")]
   [SerializeField] GameObject[] countdown;
   [Space]
@@ -51,7 +54,6 @@ public class SimonManager : MonoBehaviour {
 
   List<Receptacle> tmpReceptacle;
   List<SimonIngredient> tmpSimonIngredient;
-  List<Iteration> currentSequence;
   List<PlayerIteration> playerSequence;
 
   int ingredientReceived;
@@ -151,7 +153,6 @@ public class SimonManager : MonoBehaviour {
       }
       Completion.Invoke(completion);
     }
-
     if(currentSequence.Count == playerSequence.Count) {
       StartCoroutine(WaitBeforeCheckPlayerSequence());
     }

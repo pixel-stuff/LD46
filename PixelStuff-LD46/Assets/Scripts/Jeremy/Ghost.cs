@@ -26,27 +26,37 @@ public class Ghost : MonoBehaviour {
   [Header("Event")]
   [SerializeField] public UnityEvent GoodGoToEnd;
   [SerializeField] public UnityEvent FlickerEnd;
+  [SerializeField] public UnityEvent KillPlayerEnd;
 
   public void GoodGoTo() {
-    //switch(type) {
-    //  case GhostType.PetiteFille:
-    //    animator.Play("GoodGoToPetiteFille");
-    //    break;
-    //  case GhostType.Sage:
-    //    animator.Play("GoodGoToSage");
-    //    break;
-    //  case GhostType.Femme:
-    //    animator.Play("GoodGoToFemme");
-    //    break;
-    //}
-    Debug.Log("Math - " + "GoodGoTo" + type.ToString());
     animator.Play("GoodGoTo" + type.ToString());
-    StartCoroutine(WaitBeforeGoodToGo());
+    StartCoroutine(WaitForGoodGoToEnd());
   }
 
-  IEnumerator WaitBeforeGoodToGo() {
+  IEnumerator WaitForGoodGoToEnd() {
     yield return new WaitForSeconds(1.0f);
     GoodGoToEnd.Invoke();
+  }
+
+  public void StartKillPlayer() {
+    StartCoroutine(WaitKillPlayerEnd());
+  }
+
+  IEnumerator WaitKillPlayerEnd() {
+    animator.Play("KillPlayer");
+    yield return new WaitForSeconds(0.2f);
+    mask.VisibleFactor = 1.0f;
+    for(var i = 0; i < 4; i++) {
+      renderer1.sprite = badGhost;
+      renderer2.sprite = badGhost;
+      yield return new WaitForSeconds(UnityEngine.Random.value);
+      renderer1.sprite = goodGhost;
+      renderer2.sprite = goodGhost;
+      yield return new WaitForSeconds(UnityEngine.Random.value / 2);
+    }
+    mask.VisibleFactor = 0.0f;
+
+    KillPlayerEnd.Invoke();
   }
 
   public void UpdateVisibleFactor(float factor) => mask.VisibleFactor = factor;
@@ -59,7 +69,7 @@ public class Ghost : MonoBehaviour {
     for(var i = 0; i < 4; i++) {
       renderer1.sprite = badGhost;
       renderer2.sprite = badGhost;
-      yield return new WaitForSeconds(UnityEngine.Random.value / 2);
+      yield return new WaitForSeconds(UnityEngine.Random.value);
       renderer1.sprite = goodGhost;
       renderer2.sprite = goodGhost;
       yield return new WaitForSeconds(UnityEngine.Random.value / 2);

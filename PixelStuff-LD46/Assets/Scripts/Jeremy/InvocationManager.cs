@@ -19,6 +19,7 @@ public class InvocationManager : MonoBehaviour {
 
   public MyIntEvent GhostInvocated;
   public UnityEvent FlickerEnd;
+  public UnityEvent KillPlayerEnd;
   public UnityEvent GoodToGoEnd;
   public UnityEvent GameWin;
 
@@ -27,12 +28,17 @@ public class InvocationManager : MonoBehaviour {
   int CurrentTryBeforeDeath = 2;
   public int CollierZOffset = 10;
   public GameObject DeathGameObject;
+  Vector3 DeathGameOrignalPos;
 
   private GameObject lastGhostInvoked;
 
   public string GameOverScene = "GameOver";
   public string WinScene = "Win";
   // Start is called before the first frame update
+  private void Awake() {
+    DeathGameOrignalPos = DeathGameObject.transform.position;
+  }
+
   void Start() {
     CurrentTryBeforeDeath = TryBeforeDeath;
     if(Invocations.Count > 0) {
@@ -42,17 +48,20 @@ public class InvocationManager : MonoBehaviour {
 
   public void ConsumeTry() {
     CurrentTryBeforeDeath--;
-    StartCoroutine(FlickerGhost(0.2f, 1));
+    if(CurrentTryBeforeDeath <= 0) {
+      StartCoroutine(KillPlayerAnimation(0.2f, 1));
+    } else {
+      StartCoroutine(FlickerAnimation(0.2f, 1));
+    }
   }
 
   public void RestaureTry() {
     if(CurrentTryBeforeDeath < TryBeforeDeath) {
       CurrentTryBeforeDeath++;
-      //StartCoroutine(FailedAnimation(1.5f, -1));
     }
   }
 
-  public IEnumerator FlickerGhost(float duration, int signe) {
+  public IEnumerator FlickerAnimation(float duration, int signe) {
     Vector3 originalPos = DeathGameObject.transform.position;
 
     float elapsed = 0.0f;
@@ -68,9 +77,25 @@ public class InvocationManager : MonoBehaviour {
       yield return new WaitForEndOfFrame();
     }
 
-    if(CurrentTryBeforeDeath <= 0) {
-      SceneManager.LoadScene(GameOverScene, LoadSceneMode.Single);
+  }
+
+  public IEnumerator KillPlayerAnimation(float duration, int signe) {
+    Vector3 originalPos = DeathGameObject.transform.position;
+
+    ghosts[ghosts.Count - 1].StartKillPlayer();
+
+    float elapsed = 0.0f;
+    while(elapsed < duration) {
+      float newz = Mathf.Lerp(0, CollierZOffset, elapsed / duration);
+      DeathGameObject.transform.position = originalPos + new Vector3(0, 0, signe * newz);
+      elapsed += Time.deltaTime;
+
+      yield return new WaitForEndOfFrame();
     }
+  }
+
+  void EndKillPlayer() {
+    KillPlayerEnd.Invoke();
   }
 
   void EndFlicker() {
@@ -86,14 +111,11 @@ public class InvocationManager : MonoBehaviour {
     }
   }
 
-  public void GoToWinScene() {
-    SceneManager.LoadScene(WinScene);
-  }
+  public void GoToWinScene() => SceneManager.LoadScene(WinScene);
+  public void GoToGameOverScene() => SceneManager.LoadScene(GameOverScene);
 
   void HideFilter() {
-    Vector3 tmpPos = DeathGameObject.transform.position;
-    tmpPos.z -= CollierZOffset;
-    DeathGameObject.transform.position = tmpPos;
+     DeathGameObject.transform.position = DeathGameOrignalPos;
   }
 
   void GhostAppear(InvocationConfig inv) {
@@ -106,15 +128,15 @@ public class InvocationManager : MonoBehaviour {
     ghosts.Add(lastGhostInvoked.GetComponent<Ghost>());
     ghosts[ghosts.Count - 1].FlickerEnd.AddListener(EndFlicker);
     ghosts[ghosts.Count - 1].GoodGoToEnd.AddListener(EndGoodGoTo);
+    ghosts[ghosts.Count - 1].KillPlayerEnd.AddListener(EndKillPlayer);
     //resetMask
     lastGhostInvoked.GetComponentInChildren<MaskSlideComponent>().VisibleFactor = 0f;
 
-    GhostInvocated.Invoke(numberIngredientStart + Mathf.Max(0,(currentInvocationIndex-1))*numberIngredientStep);
+    GhostInvocated.Invoke(numberIngredientStart + Mathf.Max(0, (currentInvocationIndex - 1)) * numberIngredientStep);
   }
 
-  public void GoodGoTo() {
-    StartCoroutine(CoroutGoodGoTo());
-  }
+  public void GoodGoTo() => StartCoroutine(CoroutGoodGoTo());
+  
 
   IEnumerator CoroutGoodGoTo() {
     yield return new WaitForSeconds(2.0f);
