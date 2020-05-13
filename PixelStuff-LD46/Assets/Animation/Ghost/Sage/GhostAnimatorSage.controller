@@ -77,7 +77,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: KillPlayer
+  m_Name: KillPlayerSage
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -90,7 +90,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0de41c156e1fe4e37803f2137a345485, type: 2}
+  m_Motion: {fileID: 7400000, guid: 2163d3d8bb71a46b5a7f29f06be9b44c, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

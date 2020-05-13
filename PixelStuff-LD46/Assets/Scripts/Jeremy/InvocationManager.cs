@@ -19,6 +19,7 @@ public class InvocationManager : MonoBehaviour {
 
   public MyIntEvent GhostInvocated;
   public UnityEvent FlickerEnd;
+  public UnityEvent HideEnvironmentEvent;
   public UnityEvent KillPlayerEnd;
   public UnityEvent GoodToGoEnd;
   public UnityEvent GameWin;
@@ -79,6 +80,10 @@ public class InvocationManager : MonoBehaviour {
 
   }
 
+  public void HideEnvironment() {
+    HideEnvironmentEvent.Invoke();
+  }
+
   public IEnumerator KillPlayerAnimation(float duration, int signe) {
     Vector3 originalPos = DeathGameObject.transform.position;
 
@@ -128,6 +133,7 @@ public class InvocationManager : MonoBehaviour {
     ghosts.Add(lastGhostInvoked.GetComponent<Ghost>());
     ghosts[ghosts.Count - 1].FlickerEnd.AddListener(EndFlicker);
     ghosts[ghosts.Count - 1].GoodGoToEnd.AddListener(EndGoodGoTo);
+    ghosts[ghosts.Count - 1].KillPlayerStep2.AddListener(HideEnvironment);
     ghosts[ghosts.Count - 1].KillPlayerEnd.AddListener(EndKillPlayer);
     //resetMask
     lastGhostInvoked.GetComponentInChildren<MaskSlideComponent>().VisibleFactor = 0f;

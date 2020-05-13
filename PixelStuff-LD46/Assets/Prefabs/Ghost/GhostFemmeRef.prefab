@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1901691332016204789}
   - component: {fileID: 4557700752547731359}
-  - component: {fileID: 2652259871715297816}
   - component: {fileID: 4507294053296327556}
   m_Layer: 9
   m_Name: GhostFemmeRef
@@ -59,18 +58,9 @@ MonoBehaviour:
   FlickerEnd:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2652259871715297816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1541657530717842941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c41737f2b319e548927237a5cb9939b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  KillPlayerEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!95 &4507294053296327556
 Animator:
   serializedVersion: 3

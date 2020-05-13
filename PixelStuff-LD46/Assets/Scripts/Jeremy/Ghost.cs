@@ -26,6 +26,7 @@ public class Ghost : MonoBehaviour {
   [Header("Event")]
   [SerializeField] public UnityEvent GoodGoToEnd;
   [SerializeField] public UnityEvent FlickerEnd;
+  [SerializeField] public UnityEvent KillPlayerStep2;
   [SerializeField] public UnityEvent KillPlayerEnd;
 
   public void GoodGoTo() {
@@ -43,18 +44,23 @@ public class Ghost : MonoBehaviour {
   }
 
   IEnumerator WaitKillPlayerEnd() {
-    animator.Play("KillPlayer");
-    yield return new WaitForSeconds(0.2f);
-    mask.VisibleFactor = 1.0f;
-    for(var i = 0; i < 4; i++) {
+    animator.Play("KillPlayer" + type.ToString());
+    mask.VisibleFactor = 2.0f;
+    renderer1.sprite = badGhost;
+    renderer2.sprite = badGhost;
+
+    yield return new WaitForSeconds(2.6f);
+
+    KillPlayerStep2.Invoke();
+
+    for(var i = 0; i < 3; i++) {
       renderer1.sprite = badGhost;
       renderer2.sprite = badGhost;
-      yield return new WaitForSeconds(UnityEngine.Random.value);
+      yield return new WaitForSeconds(UnityEngine.Random.value*2/3);
       renderer1.sprite = goodGhost;
       renderer2.sprite = goodGhost;
       yield return new WaitForSeconds(UnityEngine.Random.value / 2);
     }
-    mask.VisibleFactor = 0.0f;
 
     KillPlayerEnd.Invoke();
   }
@@ -65,14 +71,14 @@ public class Ghost : MonoBehaviour {
 
   IEnumerator Flicker() {
     yield return new WaitForSeconds(0.2f);
-    mask.VisibleFactor = 1.0f;
+    mask.VisibleFactor = 2.0f;
     for(var i = 0; i < 4; i++) {
       renderer1.sprite = badGhost;
       renderer2.sprite = badGhost;
       yield return new WaitForSeconds(UnityEngine.Random.value);
       renderer1.sprite = goodGhost;
       renderer2.sprite = goodGhost;
-      yield return new WaitForSeconds(UnityEngine.Random.value / 2);
+      yield return new WaitForSeconds(UnityEngine.Random.value * 2 / 3);
     }
     mask.VisibleFactor = 0.0f;
     FlickerEnd.Invoke();
